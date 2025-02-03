@@ -1,15 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "../styles/Inspection.css";
 import { auth } from "../lib/firebase";
-import {
-  handleStatusChange,
-  useInspectionsData,
-} from "../lib/inspectionDisplayLogic";
-import Loading from "../components/loading";
+import { useInspectionsData } from "../lib/inspectionDisplayLogic";
 
 function Inspection() {
   const currentUser = auth.currentUser;
-  const { matchedData, vendor, client } = useInspectionsData(currentUser);
+  const {
+    matchedData,
+    vendor,
+    client,
+    handleStatusChange,
+    loading,
+    handleDelete,
+  } = useInspectionsData(currentUser);
 
   const InspectionCard = ({ inspect }) => (
     <div className="inpectionContainer">
@@ -44,6 +47,7 @@ function Inspection() {
             {vendor && inspect.status === "Pending" ? (
               <div className="vButtonContainer">
                 <button
+                  disabled={loading}
                   className="accept"
                   onClick={() =>
                     handleStatusChange(
@@ -55,6 +59,7 @@ function Inspection() {
                   Accept
                 </button>
                 <button
+                  disabled={loading}
                   className="reject"
                   onClick={() =>
                     handleStatusChange(
@@ -73,12 +78,30 @@ function Inspection() {
                     className={` ${
                       (inspect.status === "Pending" && "") ||
                       (inspect.status === "Rejected" && "reject") ||
-                      (inspect.status === "Accepted" && "accept")
+                      (inspect.status === "Accepted" && "accept") ||
+                      (inspect.status === "Completed" && "accept") ||
+                      (inspect.status === "Canceled" && "reject")
                     } 
                  
                 `}>
-                    You {inspect.status} this request.
+                    {inspect.status === "Completed"
+                      ? "Inspection Completed"
+                      : `You ${inspect.status} this request.`}
                   </p>
+                  {inspect.status === "Accepted" && (
+                    <button
+                      disabled={loading}
+                      className="reject"
+                      onClick={() =>
+                        handleStatusChange(
+                          inspect.id,
+                          inspect.submittedAt,
+                          "Canceled"
+                        )
+                      }>
+                      cancel
+                    </button>
+                  )}
                 </div>
               )
             )}
@@ -88,12 +111,43 @@ function Inspection() {
                   className={` ${
                     (inspect.status === "Pending" && "pending") ||
                     (inspect.status === "Rejected" && "reject") ||
-                    (inspect.status === "Accepted" && "accept")
+                    (inspect.status === "Accepted" && "accept") ||
+                    (inspect.status === "Completed" && "accept") ||
+                    (inspect.status === "Canceled" && "reject")
                   } 
                        
                       `}>
-                  {inspect.status}
+                  {inspect.status === "Completed"
+                    ? "Inspection Completed"
+                    : inspect.status === "Canceled"
+                    ? "Inspection Canceled"
+                    : inspect.status}
                 </p>
+                {/* cancel button  */}
+                {inspect.status === "Pending" && (
+                  <button
+                    disabled={loading}
+                    onClick={() =>
+                      handleDelete(inspect.id, inspect.submittedAt)
+                    }
+                    className="reject">
+                    cancel
+                  </button>
+                )}
+                {inspect.status === "Accepted" && (
+                  <button
+                    disabled={loading}
+                    onClick={() =>
+                      handleStatusChange(
+                        inspect.id,
+                        inspect.submittedAt,
+                        "Completed"
+                      )
+                    }
+                    className="pending">
+                    Completed
+                  </button>
+                )}
               </div>
             )}
           </div>
@@ -106,9 +160,23 @@ function Inspection() {
             src={inspect.property?.imageUrls[0] || "/default-image.png"}
             alt="Property"
           />
-          <p className="inspectorPropertyTitle">
-            {inspect.property?.title || "Property title unavailable"}
-          </p>
+          <div>
+            <p className="inspectorPropertyTitle">
+              {inspect.property?.title || "Property title unavailable"}
+            </p>
+            <p className="inspectorPropertyDetail">
+              Inspector name:{" "}
+              <span className="inspectorPropertySubDetail">
+                {inspect?.inspectorName}
+              </span>
+            </p>
+            <p className="inspectorPropertyDetail">
+              Inspector email:{" "}
+              <span className="inspectorPropertySubDetail">
+                {inspect?.inspectorEmail}
+              </span>
+            </p>
+          </div>
         </section>
       </div>
     </div>
@@ -129,7 +197,7 @@ function Inspection() {
             <InspectionCard key={index} inspect={inspect} />
           ))
       ) : (
-        <div><Loading /></div>
+        <div>No data found</div>
       )}
     </div>
   );

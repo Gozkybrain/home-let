@@ -83,11 +83,25 @@
   }
   .inspectorPropertyTitle{
     margin: 0;
-    padding: 10px 20px;
+    padding: 5px 20px;
+    font-weight: bold;
+  }
+  .inspectorPropertyDetail{
+    margin: 0;
+    padding: 0px 20px;
+    font-weight: bold;
+    font-size: 14px;
+  
+  }
+  .inspectorPropertySubDetail{
+    margin: 0;
+    font-size: 12px;
+    font-weight: bold;
+  
   }
   .vButtonContainer{
     display: flex;
-    align-items: end;
+    align-items: center;
     justify-content: space-between;
   }
   .accept{

@@ -31,6 +31,7 @@ function CreateProperty() {
     amenities: "",
     description: "",
     type: "rent",
+    price: "",
     bedrooms: 1,
     bathrooms: 1,
     video: { file: "", url: "" },
@@ -61,7 +62,7 @@ function CreateProperty() {
       // Ensure the selected file is a valid video format
       if (videoFile && videoFile.type.startsWith("video/")) {
         setVideoUrl(videoFile);
-        setVideoUrlPreview(URL.createObjectURL(videoFile)); 
+        setVideoUrlPreview(URL.createObjectURL(videoFile));
       } else {
         console.error("Invalid video format");
         setVideoUrl(null);
@@ -73,7 +74,7 @@ function CreateProperty() {
     if (e.target.id === "sale" || e.target.id === "rent") {
       setFormData({ ...formData, type: e.target.id });
     } else if (
-      ["title", "address", "state", "city", "houseType", "amenities", "description"].includes(e.target.id)
+      ["title", "address", "state", "city", "houseType", "price", "amenities", "description"].includes(e.target.id)
     ) {
       setFormData({ ...formData, [e.target.id]: e.target.value });
     }
@@ -169,9 +170,9 @@ function CreateProperty() {
                 )}
 
 
-                <div 
-                // Start the cover for the form
-                className="propertyForm">
+                <div
+                  // Start the cover for the form
+                  className="propertyForm">
                   {/* Property Title */}
                   <section>
                     <label className="createPropertyLabels" htmlFor="title">
@@ -367,21 +368,39 @@ function CreateProperty() {
                   </section>
 
 
-                  {/* Amenities */}
-                  <section>
-                    <label className="createPropertyLabels" htmlFor="amenities">
-                      Amenities
-                    </label>
-                    <input
-                      type="text"
-                      id="amenities"
-                      placeholder="Pool, Gym, etc."
-                      onChange={handleChange}
-                      value={formData.amenities}
-                      className="propertyFormInput"
-                    />
-                  </section>
+                  <div className="addressStateCity">
+                    {/* price */}
+                    <section className="state">
+                      <label className="createPropertyLabels" htmlFor="price">
+                        Price
+                      </label>
+                      <input
+                        type="number"
+                        id="price"
+                        value={formData.price}
+                        onChange={handleChange}
+                        className="propertyFormInput"
+                      />
+                    </section>
 
+
+                    {/* Amenities */}
+                    <section className="state">
+                      <label className="createPropertyLabels" htmlFor="amenities">
+                        Amenities
+                      </label>
+                      <input
+                        type="text"
+                        id="amenities"
+                        placeholder="Pool, Gym, etc."
+                        onChange={handleChange}
+                        value={formData.amenities}
+                        className="propertyFormInput"
+                      />
+                    </section>
+
+
+                  </div>
 
 
                   {/* Video Upload */}

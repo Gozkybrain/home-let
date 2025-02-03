@@ -1,8 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "../styles/Settings.css";
 import VendorImg from "../assets/vendorImg.jpg";
+import { doc, setDoc, getDoc } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
+import { db } from "../lib/firebase";
+
 const Settings = () => {
-  // Form states
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [businessName, setBusinessName] = useState("");
@@ -10,12 +13,88 @@ const Settings = () => {
   const [phone, setPhone] = useState("");
   const [location, setLocation] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState("");
 
-  // Handle form submission
-  const handleSubmit = (e) => {
+  const auth = getAuth();
+  const user = auth.currentUser;
+
+  // Load data from localStorage
+  useEffect(() => {
+    const savedData = JSON.parse(localStorage.getItem("vendorData"));
+    if (savedData) {
+      setFullName(savedData.fullName);
+      setEmail(savedData.email);
+      setBusinessName(savedData.businessName);
+      setBusinessDescription(savedData.businessDescription);
+      setPhone(savedData.phone);
+      setLocation(savedData.location);
+      setSubmitted(savedData.submitted || false);
+    }
+  }, []);
+
+  // Fetch data from Firestore if user exists
+  useEffect(() => {
+    const fetchVendorData = async () => {
+      if (user) {
+        const vendorDocRef = doc(db, "vendors", user.email);
+        try {
+          const vendorDoc = await getDoc(vendorDocRef);
+          if (vendorDoc.exists()) {
+            const data = vendorDoc.data();
+            setFullName(data.fullName);
+            setEmail(data.email);
+            setBusinessName(data.businessName);
+            setBusinessDescription(data.businessDescription);
+            setPhone(data.phone);
+            setLocation(data.location);
+            setSubmitted(true);
+            localStorage.setItem(
+              "vendorData",
+              JSON.stringify({ ...data, submitted: true })
+            );
+          }
+        } catch (err) {
+          console.error("Error fetching vendor data:", err.message);
+        }
+      }
+    };
+
+    fetchVendorData();
+  }, [user]);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Submit logic here (API call, validation, etc.)
-    setSubmitted(true);
+
+    if (!user) {
+      setError("You must be logged in to submit a vendor request.");
+      return;
+    }
+
+    const vendorData = {
+      fullName,
+      email,
+      phone,
+      businessName,
+      businessDescription,
+      location,
+      uid: user.uid,
+      status: "pending",
+      createdAt: new Date().toISOString(),
+    };
+
+    try {
+      const vendorDocRef = doc(db, "vendors", email);
+      await setDoc(vendorDocRef, vendorData);
+      setSubmitted(true);
+      localStorage.setItem(
+        "vendorData",
+        JSON.stringify({ ...vendorData, submitted: true })
+      );
+      console.log("Vendor details saved successfully!");
+    } catch (error) {
+      console.error("Error saving vendor details:", error.message);
+      setError("Failed to submit your request. Please try again.");
+    }
   };
 
   return (
@@ -30,12 +109,27 @@ const Settings = () => {
         </div>
         <section className="vendor-request-section">
           {submitted ? (
-            <p className="success-message">
-              Your request has been submitted successfully!
-            </p>
+            <div>
+              <p className="success-message">
+                Request submitted successfully  and is
+                pending approval.
+              </p>
+              <div className="submitted-details">
+                <p>Full Name: {fullName}</p>
+                <p>Email: {email}</p>
+                <p>Phone: {phone}</p>
+                <p>Business Name: {businessName}</p>
+                <p>Business Description: {businessDescription}</p>
+                <p>Location: {location}</p>
+                <p>Status: Pending</p>
+              </div>
+            </div>
           ) : (
             <form onSubmit={handleSubmit} className="vendor-request-form">
               <h3>Request to Become a Vendor</h3>
+
+              {error && <p className="error-message">{error}</p>}
+
               <div className="form-group">
                 <label htmlFor="fullName">Full Name</label>
                 <input
