@@ -23,6 +23,24 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+.edit-icon {
+  cursor: pointer;
+  /* Style it to make it visible (e.g., a pencil icon or a button) */
+}
+
+.save-button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  /* You can add more styles to make the button prominent */
+}
+
+.save-button:hover {
+  background-color: #45a049;
+}
+
 .overlay {
   position: absolute;
   top: 0;

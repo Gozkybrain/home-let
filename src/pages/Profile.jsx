@@ -1,25 +1,24 @@
 import { useState, useEffect } from "react";
-import "../styles/Profile.css";
 import { getAuth } from "firebase/auth";
-import flat from "../assets/fiat.png";
+import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import flat from "../assets/fiat.png"; // Update path if necessary
+import "../styles/Profile.css";
 
 const Profile = () => {
   const auth = getAuth();
+  const db = getFirestore();
+  const storage = getStorage();
   const [user, setUser] = useState(null);
-  const [profileImage, setProfileImage] = useState(
-    "https://via.placeholder.com/150"
-  );
+  const [profileImage, setProfileImage] = useState(flat);
   const [formData, setFormData] = useState({
-    firstName: "John",
-    lastName: "Doe",
-    title: "Apartment Seeker",
-    aboutMe: "I am actively seeking apartments in major cities...",
-    email: "johndoe@example.com",
-    phone: "+1234567890",
-    address: "123 Main St",
-    localGovernmentArea: "Downtown",
-    state: "New York",
-    landmark: "Central Park",
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    address: "",
+    state: "",
+    landmark: "",
     linkedin: "",
     twitter: "",
     instagram: "",
@@ -27,17 +26,62 @@ const Profile = () => {
   const [isEditable, setIsEditable] = useState(false);
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      setUser(user || null);
-    });
-    return () => unsubscribe();
-  }, [auth]);
+    const unsubscribe = auth.onAuthStateChanged(async (user) => {
+      if (user) {
+        setUser(user);
 
-  const handleImageChange = (e) => {
+        // Fetch user data from Firestore
+        const userDocRef = doc(db, "users", user.uid);
+        const userDocSnap = await getDoc(userDocRef);
+
+        if (userDocSnap.exists()) {
+          const userData = userDocSnap.data();
+          setFormData({
+            fullName: userData.fullName || "Guest User",
+            role: userData.role || "User",
+            email: userData.email || user.email,
+            number: userData.number || user.number,
+            address: userData.address || "",
+            state: userData.state || "",
+            landmark: userData.landmark || "",
+            linkedin: userData.linkedin || "",
+            twitter: userData.twitter || "",
+            instagram: userData.instagram || "",
+          });
+
+          // Load profile image if available
+          if (userData.profileImage) {
+            setProfileImage(userData.profileImage);
+          }
+        } else {
+          console.log("No such document!");
+        }
+      } else {
+        setUser(null);
+      }
+    });
+
+    return () => unsubscribe();
+  }, [auth, db]);
+
+  const handleImageChange = async (e) => {
     const file = e.target.files[0];
-    if (file) {
-      const imageUrl = URL.createObjectURL(file);
-      setProfileImage(imageUrl);
+    if (file && user) {
+      const imageRef = ref(storage, `profileImages/${user.uid}`);
+      try {
+        await uploadBytes(imageRef, file);
+        const downloadURL = await getDownloadURL(imageRef);
+        setProfileImage(downloadURL);
+
+        // Update Firestore with the image URL
+        await setDoc(
+          doc(db, "users", user.uid),
+          { profileImage: downloadURL },
+          { merge: true }
+        );
+      } catch (error) {
+        console.error("Error uploading image: ", error);
+      }
     }
   };
 
@@ -49,16 +93,30 @@ const Profile = () => {
     setIsEditable(true);
   };
 
-  const handleSaveClick = () => {
-    // Update user displayName with the first and last name
+  const handleSaveClick = async () => {
     if (user) {
-      user.updateProfile({
-        displayName: `${formData.firstName} ${formData.lastName}`,
-      }).then(() => {
-        setIsEditable(false); 
-      }).catch((error) => {
+      const userDocRef = doc(db, "users", user.uid);
+      try {
+        await setDoc(
+          userDocRef,
+          {
+            fullName: formData.fullName,
+            email: formData.email,
+            number: formData.number,
+            address: formData.address,
+            state: formData.state,
+            landmark: formData.landmark,
+            linkedin: formData.linkedin,
+            twitter: formData.twitter,
+            instagram: formData.instagram,
+          },
+          { merge: true }
+        );
+        setIsEditable(false);
+        console.log("Profile updated!");
+      } catch (error) {
         console.error("Error updating profile: ", error);
-      });
+      }
     }
   };
 
@@ -93,16 +151,14 @@ const Profile = () => {
               />
             </>
           )}
-          <div className="edit-icon" onClick={handleEditClick} />
         </div>
 
         <div className="profile-section">
           <div className="profile-intro">
-            <h1 className="profile-name">
-              {user?.displayName || "No name to display"}
-            </h1>
-            <p className="profile-title">{formData.title}</p>
+            <h1 className="profile-name">{formData.fullName}</h1>
+            <p className="profile-title">{formData.role}</p>
           </div>
+
           <h2>About Me</h2>
           <textarea
             className="about-me"
@@ -115,135 +171,116 @@ const Profile = () => {
           <div className="contact-socials-container">
             <div className="flex-row">
               <div className="flex-column">
-                <label>First Name</label>
+                <label>Full Name</label>
                 <input
                   type="text"
                   name="firstName"
-                  value={formData.firstName}
-                  onChange={handleInputChange}
-                  disabled={!isEditable}
-                />
-              </div>
-              <div className="flex-column">
-                <label>Last Name</label>
-                <input
-                  type="text"
-                  name="lastName"
-                  value={formData.lastName}
+                  value={formData.fullName}
                   onChange={handleInputChange}
                   disabled={!isEditable}
                 />
               </div>
             </div>
 
-            <div className="flex-row">
-              <div className="flex-column">
-                <label>Email</label>
-                <input
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  disabled={!isEditable}
-                />
-              </div>
-              <div className="flex-column">
-                <label>Phone</label>
-                <input
-                  type="tel"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleInputChange}
-                  disabled={!isEditable}
-                />
-              </div>
+            <div className="flex-column">
+              <label>Email</label>
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleInputChange}
+                disabled={!isEditable}
+              />
             </div>
 
-            <div className="flex-row">
-              <div className="flex-column">
-                <label>Address</label>
-                <input
-                  type="text"
-                  name="address"
-                  value={formData.address}
-                  onChange={handleInputChange}
-                  disabled={!isEditable}
-                />
-              </div>
-              <div className="flex-column">
-                <label>Local Government Area</label>
-                <input
-                  type="text"
-                  name="localGovernmentArea"
-                  value={formData.localGovernmentArea}
-                  onChange={handleInputChange}
-                  disabled={!isEditable}
-                />
-              </div>
+            <div className="flex-column">
+              <label>Phone</label>
+              <input
+                type="text"
+                name="number"
+                value={formData.number}
+                onChange={handleInputChange}
+                disabled={!isEditable}
+              />
             </div>
 
-            <div className="flex-row">
-              <div className="flex-column">
-                <label>State</label>
-                <input
-                  type="text"
-                  name="state"
-                  value={formData.state}
-                  onChange={handleInputChange}
-                  disabled={!isEditable}
-                />
-              </div>
-              <div className="flex-column">
-                <label>Landmark</label>
-                <input
-                  type="text"
-                  name="landmark"
-                  value={formData.landmark}
-                  onChange={handleInputChange}
-                  disabled={!isEditable}
-                />
-              </div>
+            <div className="flex-column">
+              <label>Address</label>
+              <input
+                type="text"
+                name="address"
+                value={formData.address}
+                onChange={handleInputChange}
+                disabled={!isEditable}
+              />
             </div>
 
-            <div className="flex-row">
-              <div className="flex-column">
-                <label>LinkedIn</label>
-                <input
-                  type="url"
-                  name="linkedin"
-                  value={formData.linkedin}
-                  onChange={handleInputChange}
-                  disabled={!isEditable}
-                />
-              </div>
-              <div className="flex-column">
-                <label>Twitter</label>
-                <input
-                  type="url"
-                  name="twitter"
-                  value={formData.twitter}
-                  onChange={handleInputChange}
-                  disabled={!isEditable}
-                />
-              </div>
-              <div className="flex-column">
-                <label>Instagram</label>
-                <input
-                  type="url"
-                  name="instagram"
-                  value={formData.instagram}
-                  onChange={handleInputChange}
-                  disabled={!isEditable}
-                />
-              </div>
+            <div className="flex-column">
+              <label>State</label>
+              <input
+                type="text"
+                name="state"
+                value={formData.state}
+                onChange={handleInputChange}
+                disabled={!isEditable}
+              />
             </div>
+
+            <div className="flex-column">
+              <label>Landmark</label>
+              <input
+                type="text"
+                name="landmark"
+                value={formData.landmark}
+                onChange={handleInputChange}
+                disabled={!isEditable}
+              />
+            </div>
+
+            <div className="flex-column">
+              <label>LinkedIn</label>
+              <input
+                type="text"
+                name="linkedin"
+                value={formData.linkedin}
+                onChange={handleInputChange}
+                disabled={!isEditable}
+              />
+            </div>
+
+            <div className="flex-column">
+              <label>Twitter</label>
+              <input
+                type="text"
+                name="twitter"
+                value={formData.twitter}
+                onChange={handleInputChange}
+                disabled={!isEditable}
+              />
+            </div>
+
+            <div className="flex-column">
+              <label>Instagram</label>
+              <input
+                type="text"
+                name="instagram"
+                value={formData.instagram}
+                onChange={handleInputChange}
+                disabled={!isEditable}
+              />
+            </div>
+
+            {isEditable && (
+              <button onClick={handleSaveClick} className="save-button">
+                Save
+              </button>
+            )}
+            {!isEditable && (
+              <button onClick={handleEditClick} className="edit-button">
+                Edit Profile
+              </button>
+            )}
           </div>
-
-          {isEditable && (
-            <button onClick={handleSaveClick} className="save-button">
-              Save
-            </button>
-          )}
         </div>
       </div>
     </div>
