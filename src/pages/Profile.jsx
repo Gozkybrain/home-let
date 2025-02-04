@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { getAuth } from "firebase/auth";
 import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import flat from "../assets/fiat.png"; // Update path if necessary
+import flat from "../assets/fiat.png"; 
 import "../styles/Profile.css";
 
 const Profile = () => {
