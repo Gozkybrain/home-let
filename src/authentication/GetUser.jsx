@@ -49,10 +49,6 @@ const GetUser = () => {
     }, []);
     
 
-    // if (loading) {
-    //     return <Loading />; 
-    // }
-
     if (!userRole) {
         return <div>User role not found</div>; 
     }
