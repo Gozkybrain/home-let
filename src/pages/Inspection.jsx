@@ -20,31 +20,15 @@ function Inspection() {
         {/* Schedule Section */}
         <section className="inspectorPropertySchedule">
           <div className="inspectionPropertyAddressContainer">
-            <p className="place">DATE</p>
             <p className="scheduleDetail">
-              {inspect.date || "No date available"}
-            </p>
-            <p className="place">TIME</p>
-            <p className="scheduleDetail">
-              {inspect.time || "No time available"}
-            </p>
-          </div>
-        </section>
+              <strong>ADDRESS: </strong>  {inspect.property?.address || "Address not provided"}
 
-        {/* Place Section */}
-        <section className="inspectorPropertySchedule">
-          <div className="inspectionPropertyAddressContainer">
-            <p className="place">PLACE</p>
-            <p className="placeB">
-              {inspect.property?.address || "Address not provided"}
             </p>
-            <p className="placeC">
-              Please note that no harmful substance should be brought to this
-              inspection.
+            <p className="place">
+              Your schedule is on {inspect.date || "No date available"} at {inspect.time || "No time available"}
             </p>
-
-            {/* Action buttons for Vendor or Client */}
-            {vendor && inspect.status === "Pending" ? (
+             {/* Action buttons for Vendor or Client */}
+             {vendor && inspect.status === "Pending" ? (
               <div className="vButtonContainer">
                 <button
                   disabled={loading}
@@ -75,13 +59,12 @@ function Inspection() {
               vendor && (
                 <div className="vButtonContainer">
                   <p
-                    className={` ${
-                      (inspect.status === "Pending" && "") ||
+                    className={` ${(inspect.status === "Pending" && "") ||
                       (inspect.status === "Rejected" && "reject") ||
                       (inspect.status === "Accepted" && "accept") ||
                       (inspect.status === "Completed" && "accept") ||
                       (inspect.status === "Canceled" && "reject")
-                    } 
+                      } 
                  
                 `}>
                     {inspect.status === "Completed"
@@ -108,20 +91,19 @@ function Inspection() {
             {!vendor && (
               <div className="vButtonContainer">
                 <p
-                  className={` ${
-                    (inspect.status === "Pending" && "pending") ||
+                  className={` ${(inspect.status === "Pending" && "pending") ||
                     (inspect.status === "Rejected" && "reject") ||
                     (inspect.status === "Accepted" && "accept") ||
                     (inspect.status === "Completed" && "accept") ||
                     (inspect.status === "Canceled" && "reject")
-                  } 
+                    } 
                        
                       `}>
                   {inspect.status === "Completed"
                     ? "Inspection Completed"
                     : inspect.status === "Canceled"
-                    ? "Inspection Canceled"
-                    : inspect.status}
+                      ? "Inspection Canceled"
+                      : inspect.status}
                 </p>
                 {/* cancel button  */}
                 {inspect.status === "Pending" && (
@@ -170,12 +152,7 @@ function Inspection() {
                 {inspect?.inspectorName}
               </span>
             </p>
-            <p className="inspectorPropertyDetail">
-              Inspector email:{" "}
-              <span className="inspectorPropertySubDetail">
-                {inspect?.inspectorEmail}
-              </span>
-            </p>
+           
           </div>
         </section>
       </div>
