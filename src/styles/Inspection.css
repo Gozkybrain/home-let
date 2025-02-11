@@ -40,7 +40,7 @@
 .scheduleDetail {
   margin: 0;
   font-size: 14px;
-  font-weight: bold;
+  /* font-weight: bold; */
   background: #0066331c;
   padding: 18px 10px;
   border-radius: 5px;
@@ -62,7 +62,7 @@
 .place {
   margin: 0;
   font-size: 16px;
-  font-weight: bold;
+  /* font-weight: bold; */
 }
 
 

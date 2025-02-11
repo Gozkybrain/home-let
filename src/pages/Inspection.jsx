@@ -174,7 +174,7 @@ function Inspection() {
             <InspectionCard key={index} inspect={inspect} />
           ))
       ) : (
-        <div>No data found</div>
+        <div>No data found ...</div>
       )}
     </div>
   );

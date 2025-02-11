@@ -6,7 +6,6 @@ import "../styles/Users.css";
 import Loading from "../components/loading";
 import dummy from "../assets/fiat.png";
 
-
 const AllUsers = () => {
   const [users, setUsers] = useState([]);
   const [filteredUsers, setFilteredUsers] = useState([]);
@@ -25,8 +24,8 @@ const AllUsers = () => {
 
           return {
             id: userId,
-            fullName: userData.fullName,
-            email: userData.email,
+            fullName: userData.fullName || "Unknown User",
+            email: userData.email || "No Email",
             profilePhotoUrl: userData.profilePhotoUrl || dummy,
             role: userData.role || "Customer",
           };
@@ -45,11 +44,14 @@ const AllUsers = () => {
   }, []);
 
   useEffect(() => {
-    const filtered = users.filter(
-      (user) =>
-        user.fullName.toLowerCase().includes(searchT.toLowerCase()) ||
-        user.email.toLowerCase().includes(searchT.toLowerCase())
-    );
+    const filtered = users.filter((user) => {
+      const fullName = user.fullName ? user.fullName.toLowerCase() : "";
+      const email = user.email ? user.email.toLowerCase() : "";
+      return (
+        fullName.includes(searchT.toLowerCase()) ||
+        email.includes(searchT.toLowerCase())
+      );
+    });
     setFilteredUsers(filtered);
   }, [searchT, users]);
 
