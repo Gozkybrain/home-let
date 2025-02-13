@@ -110,10 +110,7 @@ const Settings = () => {
         <section className="vendor-request-section">
           {submitted ? (
             <div>
-              <p className="success-message">
-                Request submitted successfully  and is
-                pending approval.
-              </p>
+
               <div className="submitted-details">
                 <p>Full Name: {fullName}</p>
                 <p>Email: {email}</p>
@@ -121,7 +118,11 @@ const Settings = () => {
                 <p>Business Name: {businessName}</p>
                 <p>Business Description: {businessDescription}</p>
                 <p>Location: {location}</p>
-                <p>Status: Pending</p>
+                <p>Status:  <strong>
+                  Request submitted successfully  and is
+                  pending approval.
+                </strong>
+                </p>
               </div>
             </div>
           ) : (

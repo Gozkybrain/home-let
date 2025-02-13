@@ -17,7 +17,7 @@
   border-radius: 10px;
   background-color: #f9f9f9;
   box-shadow: 2px 4px 2px 4px rgba(0, 0, 0, 0.1);
-  margin: 0 3rem;
+  /* margin: 0 3rem; */
 }
 
 .settings-img {
@@ -34,7 +34,7 @@
 
 .vendor-request-section {
   flex: 0 0 60%;
-  padding-left: 20px;
+  /* padding-left: 20px; */
   padding: 1.5rem;
 }
 
