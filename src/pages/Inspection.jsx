@@ -12,6 +12,7 @@ function Inspection() {
     handleStatusChange,
     loading,
     handleDelete,
+    handleClick,
   } = useInspectionsData(currentUser);
 
   const InspectionCard = ({ inspect }) => (
@@ -21,14 +22,15 @@ function Inspection() {
         <section className="inspectorPropertySchedule">
           <div className="inspectionPropertyAddressContainer">
             <p className="scheduleDetail">
-              <strong>ADDRESS: </strong>  {inspect.property?.address || "Address not provided"}
-
+              <strong>ADDRESS: </strong>{" "}
+              {inspect.property?.address || "Address not provided"}
             </p>
             <p className="place">
-              Your schedule is on {inspect.date || "No date available"} at {inspect.time || "No time available"}
+              Your schedule is on {inspect.date || "No date available"} at{" "}
+              {inspect.time || "No time available"}
             </p>
-             {/* Action buttons for Vendor or Client */}
-             {vendor && inspect.status === "Pending" ? (
+            {/* Action buttons for Vendor or Client */}
+            {vendor && inspect.status === "Pending" ? (
               <div className="vButtonContainer">
                 <button
                   disabled={loading}
@@ -59,12 +61,13 @@ function Inspection() {
               vendor && (
                 <div className="vButtonContainer">
                   <p
-                    className={` ${(inspect.status === "Pending" && "") ||
+                    className={` ${
+                      (inspect.status === "Pending" && "") ||
                       (inspect.status === "Rejected" && "reject") ||
                       (inspect.status === "Accepted" && "accept") ||
                       (inspect.status === "Completed" && "accept") ||
                       (inspect.status === "Canceled" && "reject")
-                      } 
+                    } 
                  
                 `}>
                     {inspect.status === "Completed"
@@ -91,19 +94,20 @@ function Inspection() {
             {!vendor && (
               <div className="vButtonContainer">
                 <p
-                  className={` ${(inspect.status === "Pending" && "pending") ||
+                  className={` ${
+                    (inspect.status === "Pending" && "pending") ||
                     (inspect.status === "Rejected" && "reject") ||
                     (inspect.status === "Accepted" && "accept") ||
                     (inspect.status === "Completed" && "accept") ||
                     (inspect.status === "Canceled" && "reject")
-                    } 
+                  } 
                        
                       `}>
                   {inspect.status === "Completed"
                     ? "Inspection Completed"
                     : inspect.status === "Canceled"
-                      ? "Inspection Canceled"
-                      : inspect.status}
+                    ? "Inspection Canceled"
+                    : inspect.status}
                 </p>
                 {/* cancel button  */}
                 {inspect.status === "Pending" && (
@@ -136,7 +140,9 @@ function Inspection() {
         </section>
 
         {/* Property Section */}
-        <section className="inspectorPropertyDetails">
+        <section
+          className="inspectorPropertyDetails"
+          onClick={() => handleClick(inspect.property?.id)}>
           <img
             className="inspectorPropertyImage"
             src={inspect.property?.imageUrls[0] || "/default-image.png"}
@@ -147,12 +153,12 @@ function Inspection() {
               {inspect.property?.title || "Property title unavailable"}
             </p>
             <p className="inspectorPropertyDetail">
-              Inspector name:{" "}
               <span className="inspectorPropertySubDetail">
-                {inspect?.inspectorName}
+                {vendor
+                  ? "Inspector name: " + inspect?.inspectorName
+                  : "Vendor name: " + inspect?.creatorName}
               </span>
             </p>
-           
           </div>
         </section>
       </div>

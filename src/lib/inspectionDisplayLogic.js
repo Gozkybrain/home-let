@@ -9,6 +9,7 @@ import {
   deleteDoc,
 } from "firebase/firestore";
 import { db } from "./firebase";
+import { useNavigate } from "react-router-dom";
 
 // Match inspections with properties and determine user role
 export const useInspectionsData = (currentUser) => {
@@ -18,6 +19,7 @@ export const useInspectionsData = (currentUser) => {
   const [vendor, setVendor] = useState(false);
   const [client, setClient] = useState(false);
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Fetch inspections data in real-time
@@ -122,6 +124,10 @@ export const useInspectionsData = (currentUser) => {
       setLoading(false);
     }
   };
+  // Handling clicked property
+  const handleClick = (property) => {
+    navigate(`/preview/${property}`);
+  };
   return {
     matchedData,
     vendor,
@@ -130,5 +136,6 @@ export const useInspectionsData = (currentUser) => {
     loading,
     handleStatusChange,
     handleDelete,
+    handleClick,
   };
 };

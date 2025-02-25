@@ -77,6 +77,7 @@ const useFormData = (property, auth) => {
       [name]: value,
       inspectorName: user?.name,
       inspectorEmail: user?.email,
+      creatorName: property?.creatorName,
     });
 
     // Formatted Date

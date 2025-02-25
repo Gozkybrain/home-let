@@ -5,7 +5,6 @@ import { auth, db } from "../lib/firebase";
 import "../styles/PropertyPreview.css";
 import RelatedProperties from "../components/RelatedProperties";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
 import {
   faHomeLgAlt,
   faMapMarkerAlt,
@@ -31,8 +30,11 @@ const Skeleton = () => {
 // Modal Component
 const Modal = ({ isOpen, closeModal, property }) => {
   if (!isOpen) return null; // Don't render the modal if it's not open
-  // get current date
-  const today = new Date().toISOString().split("T")[0];
+  // get current date && time
+  const now = new Date();
+  const today = now.toISOString().split("T")[0];
+  const currentTime = now.toISOString().split("T")[1].substring(0, 5);
+  const [timeMin, setTimeMin] = useState(currentTime);
 
   const navigate = useNavigate();
   const {
@@ -46,6 +48,15 @@ const Modal = ({ isOpen, closeModal, property }) => {
     setLoading,
     loading,
   } = useFormData(property, auth);
+
+  // Update the time when the day changes
+  useEffect(() => {
+    if (formData?.date === today) {
+      setTimeMin(currentTime); // If today's date, set time min to current time
+    } else if (formData?.date > today) {
+      setTimeMin("00:00"); // If future date, allow any time
+    }
+  }, [formData.date]);
 
   // handling form submission
   const handleSubmit = async (e) => {
@@ -63,7 +74,6 @@ const Modal = ({ isOpen, closeModal, property }) => {
       setLoading(false);
     }
   };
-
 
   return (
     <div className="modal-overlay">
@@ -113,6 +123,7 @@ const Modal = ({ isOpen, closeModal, property }) => {
                   type="time"
                   id="time"
                   name="time"
+                  min={timeMin}
                   value={formData.time}
                   onChange={handleChange}
                   required
