@@ -1,38 +1,35 @@
-.searchContainer {
-    padding: 10px;
-    text-align: center;
-    background: #2c2c2c;
-    width: 100%;
-}
-
-.searchInput {
-    width: 50%;
-    padding: 10px;
-    border: 2px solid #006633;
-    background-color: #ddd;
-    color: #333;
-    border-radius: 50px;
-    font-size: 16px;
-}
-
 .search-container {
-    width: 100%;
+    width: 100%; 
     margin: 15px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     border-radius: 10px;
     display: flex;
     flex-direction: column;
     overflow: hidden;
-}
-
-.searchDisplay {
-    padding: 20px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
+  }
+  .searchContainer {
+    padding: 10px;
     width: 100%;
-}
+   display: flex;
+  }
+  
+  .searchInput {
+        width: 30%;
+        padding: 10px;
+        border: 2px solid #006633;
+        background-color: #ddd;
+        color: #333;
+        border-radius: 50px;
+        font-size: 16px;
+      }
+    
 
+      .searchDisplay {
+        padding:  20px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        width: 100%;
+    }
 .lastFiveProduct {
     padding: 0 30px;
     display: flex;
@@ -42,6 +39,7 @@
 
 .lastFiveProduct:hover {
     cursor: pointer;
+    
 }
 
 .properties-cover {
@@ -50,9 +48,8 @@
     align-items: center;
     padding: 10px;
 }
-
-.eachsearchedProperty {
-    width: 42%;
+.eachsearchedProperty{
+    width: 28%;
     align-items: center;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19);
@@ -60,7 +57,6 @@
     gap: 10px;
     cursor: pointer;
 }
-
 .propertysearchHeroImage {
     width: 100%;
     height: 250px;
@@ -68,18 +64,15 @@
     border-radius: 8px 8px 0 0;
     object-fit: cover;
 }
-
-.propertySearchTitle {
+.propertySearchTitle{
     font-weight: bold;
     font-size: 16px;
 }
-
-.propertySearchRoomSection {
+.propertySearchRoomSection{
     display: flex;
     gap: 10px;
     font-weight: bold;
 }
-
 .title {
     font-size: 2rem;
 }
@@ -185,9 +178,9 @@
     width: 50%;
 }
 
-.npProperty {
-    text-align: center;
-    font-weight: bold;
+.npProperty{
+text-align: center;
+font-weight: bold;
 }
 
 @keyframes pulse {
@@ -202,7 +195,11 @@
     }
 }
 
-
+@media (max-width: 1100px) {
+    .eachsearchedProperty{
+        width: 40%;
+    }
+}
 
 
 @media (max-width: 840px) {
@@ -210,28 +207,24 @@
         display: block;
         padding: 0;
     }
-
     .search-container {
         box-shadow: none;
         padding: 10px;
         align-items: center;
     }
-
     .searchDisplay {
         padding: 0 10px;
         display: flex;
         flex-wrap: wrap;
         gap: 30px;
     }
-
-    .eachsearchedProperty {
+    .eachsearchedProperty{
         width: 100%;
     }
-
     .eachProp {
         width: 100%;
         margin: 20px 0;
         display: block;
         flex-direction: row;
     }
-}
+  }

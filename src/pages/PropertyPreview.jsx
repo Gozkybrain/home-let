@@ -5,6 +5,7 @@ import { auth, db } from "../lib/firebase";
 import "../styles/PropertyPreview.css";
 import RelatedProperties from "../components/RelatedProperties";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import {
   faHomeLgAlt,
   faMapMarkerAlt,
@@ -85,7 +86,7 @@ const Modal = ({ isOpen, closeModal, property }) => {
             alt="///"
           />
 
-          <div className=" ">
+          <div className=" modalContainer">
             <section className="previewPropertyInspectButtonS">
               <button
                 onClick={closeModal}
@@ -99,7 +100,7 @@ const Modal = ({ isOpen, closeModal, property }) => {
               {property.address}, {property.city}, {property.state} State
             </p>
             <p className="previewPropertyAddress">Physical Inspection</p>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className=" containerForm">
               {/* inputs  */}
 
               <section className=" eachModalInputSection">
@@ -131,12 +132,14 @@ const Modal = ({ isOpen, closeModal, property }) => {
                 {formattedTime && <p>Time: {formattedTime}</p>}
               </section>
 
-              <button
-                disabled={loading}
-                className="  modalButton"
-                type="submit">
-                {loading ? "Loading.." : "Submit"}
-              </button>
+              <section className="modalButtonContainer">
+                <button
+                  disabled={loading}
+                  className="  modalButton"
+                  type="submit">
+                  {loading ? "Loading.." : "Submit"}
+                </button>
+              </section>
               <section className="formStatusSection">
                 {error && (
                   <p className="formError">
@@ -153,11 +156,15 @@ const Modal = ({ isOpen, closeModal, property }) => {
 };
 
 function PropertyPreview() {
+  const currentUser = auth.currentUser;
   // getting propertyId
   const { propertyId } = useParams();
   const [property, setProperty] = useState({});
   const [isLoading, setIsLoading] = useState(true); // Loading state
   const [isModalOpen, setIsModalOpen] = useState(false); // state for modal
+  const { handleDeleteProperty } = useFormData(property, auth);
+
+  const [vendor, setVendor] = useState(false);
 
   useEffect(() => {
     // getting the properties from the db
@@ -174,6 +181,8 @@ function PropertyPreview() {
         );
         setProperty(selectedProperty);
         setIsLoading(false); // Set loading to false when data is fetched
+        // Check if the current user is a vendor or client
+        setVendor(selectedProperty.id.endsWith(currentUser.uid));
       })
       .catch((error) => {
         console.error("Error retrieving document:", error);
@@ -295,6 +304,17 @@ function PropertyPreview() {
                 physically inspect the {property.houseType}.
               </div>
             </div>
+
+            {/* delete property display if user is vendor  */}
+            {vendor && (
+              <div className="deletePropertyContainer">
+                <button
+                  className="deleteProperty"
+                  onClick={() => handleDeleteProperty(property.id)}>
+                  Delete Property
+                </button>
+              </div>
+            )}
           </div>
 
           {/* Related Properties Component */}

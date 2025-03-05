@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "../styles/Inspection.css";
 import { auth } from "../lib/firebase";
 import { useInspectionsData } from "../lib/inspectionDisplayLogic";
@@ -14,6 +14,19 @@ function Inspection() {
     handleDelete,
     handleClick,
   } = useInspectionsData(currentUser);
+
+  const [selectedTab, setSelectedTab] = useState("Pending"); // Set default tab
+
+  // Filter inspections based on selected tab
+  const filteredInspections = matchedData.filter((inspect) => {
+    if (
+      (vendor && inspect.id.endsWith(currentUser.uid)) ||
+      (client && inspect.userReqId === currentUser.uid)
+    ) {
+      return inspect.status === selectedTab;
+    }
+    return false;
+  });
 
   const InspectionCard = ({ inspect }) => (
     <div className="inpectionContainer">
@@ -169,18 +182,25 @@ function Inspection() {
     <div className="inspectionC">
       <h3 className="inspectionH">Property Inspections</h3>
 
-      {matchedData.length ? (
-        matchedData
-          .filter(
-            (inspect) =>
-              (vendor && inspect.id.endsWith(currentUser.uid)) ||
-              (client && inspect.userReqId === currentUser.uid)
-          )
-          .map((inspect, index) => (
-            <InspectionCard key={index} inspect={inspect} />
-          ))
+      {/* Tab navigation */}
+      <div className="tabs">
+        {["Pending", "Accepted", "Completed", "Rejected"].map((status) => (
+          <button
+            key={status}
+            className={selectedTab === status ? "activeTab" : "inActiveTab"}
+            onClick={() => setSelectedTab(status)}>
+            {status}
+          </button>
+        ))}
+      </div>
+
+      {/* Display filtered inspections */}
+      {filteredInspections.length ? (
+        filteredInspections.map((inspect, index) => (
+          <InspectionCard key={index} inspect={inspect} />
+        ))
       ) : (
-        <div>No data found ...</div>
+        <div>You have no inspection in this current tab...</div>
       )}
     </div>
   );

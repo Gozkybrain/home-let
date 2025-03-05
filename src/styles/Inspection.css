@@ -171,6 +171,41 @@
 
 }
 
+.tabs{
+  background: gray;
+  padding: 5px;
+  border-radius: 10px;
+  width: fit-content;
+  display: flex;
+  flex-wrap: wrap;
+}
+.activeTab {
+  background: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19);
+  color: black;
+  font-size: 12px;
+  font-weight: bolder;
+  width: 80px;
+  text-align: center; 
+  padding: 10px 0; 
+  display: inline-block; 
+  line-height: normal; 
+}
+.activeTab:focus  {
+  outline: none;
+  border: none;
+}
+.inActiveTab{
+  background: gray;
+  border: none;
+  font-size: 12px;
+  font-weight: bolder;
+  width: 80px;
+  text-align: center; 
+  padding: 10px 0; 
+  display: inline-block; 
+  line-height: normal; 
+}
 
 @media (max-width: 796px) {
   .inpectionsubContainer {
@@ -179,7 +214,16 @@
     gap: 10px;
     padding: 5px;
   }
-
+  .activeTab,.inActiveTab {
+    font-size: 10px;
+    font-weight: bolder;
+    width: 60px;
+    text-align: center; 
+    padding: 10px 0; 
+    display: inline-block; 
+    line-height: normal; 
+  }
+ 
 
   .inspectionPropertyAddressContainer {
     width: 90%;

@@ -37,9 +37,9 @@ function ProductList() {
         });
 
         // Sort by most recent and set filtered properties
-        const last5Properties = filteredData
-          .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-          .slice(0, 6); // Show top 5 properties
+        const last5Properties = filteredData.sort(
+          (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+        );
 
         setProperties(last5Properties);
         setFilteredProperties(last5Properties);

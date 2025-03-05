@@ -1,6 +1,6 @@
 // Handling inspection uploading
 
-import { collection, doc, getDoc, setDoc } from "firebase/firestore";
+import { collection, deleteDoc, doc, getDoc, setDoc } from "firebase/firestore";
 import { auth, db } from "./firebase";
 
 export const handleMakeInspection = async (formData) => {
@@ -111,6 +111,19 @@ const useFormData = (property, auth) => {
       setFormattedTime(formatted);
     }
   };
+  // Function to handle deleting a property
+  const handleDeleteProperty = async (propertyId) => {
+    try {
+      const propertyRef = doc(db, "propertyData", propertyId);
+
+      // Deleting the document with the given propertyId
+      await deleteDoc(propertyRef);
+      navigate("/");
+      console.log("Property deleted successfully");
+    } catch (error) {
+      console.error("Error deleting property:", error);
+    }
+  };
 
   return {
     formData,
@@ -122,6 +135,7 @@ const useFormData = (property, auth) => {
     handleChange,
     loading,
     setLoading,
+    handleDeleteProperty,
   };
 };
 
