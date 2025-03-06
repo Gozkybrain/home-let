@@ -53,9 +53,11 @@ const Modal = ({ isOpen, closeModal, property }) => {
   // Update the time when the day changes
   useEffect(() => {
     if (formData?.date === today) {
-      setTimeMin(currentTime); // If today's date, set time min to current time
+      // If today's date, set time min to current time
+      setTimeMin(currentTime);
     } else if (formData?.date > today) {
-      setTimeMin("00:00"); // If future date, allow any time
+      // If future date, allow any time
+      setTimeMin("00:00");
     }
   }, [formData.date]);
 
@@ -83,7 +85,7 @@ const Modal = ({ isOpen, closeModal, property }) => {
           <img
             src={property?.imageUrls[0]}
             className=" formModalImage"
-            alt="///"
+            alt="Home Let INC"
           />
 
           <div className=" modalContainer">

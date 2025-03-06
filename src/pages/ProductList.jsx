@@ -7,9 +7,7 @@ import "../styles/Properties.css";
 function ProductList() {
   const navigate = useNavigate();
   const [properties, setProperties] = useState([]);
-  const [filteredProperties, setFilteredProperties] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedProperty, setSelectedProperty] = useState({});
 
   // Function to handle search input
   const handleSearchChange = (e) => {
@@ -42,7 +40,6 @@ function ProductList() {
         );
 
         setProperties(last5Properties);
-        setFilteredProperties(last5Properties);
       })
       .catch((error) => {
         console.error("Error retrieving document:", error);
@@ -51,7 +48,6 @@ function ProductList() {
 
   // Handling clicked property
   const handleClick = (property) => {
-    setSelectedProperty(property.id);
     navigate(`/preview/${property.id}`);
   };
 
@@ -61,7 +57,7 @@ function ProductList() {
       <div className="searchContainer">
         <input
           type="text"
-          placeholder="Search properties..."
+          placeholder="Describe a Property eg. Duplex in Owerri"
           value={searchQuery}
           onChange={handleSearchChange}
           className="searchInput"
