@@ -29,8 +29,8 @@ function Inspection() {
   });
 
   const InspectionCard = ({ inspect }) => (
-    <div className="inpectionContainer">
-      <div className="inpectionsubContainer">
+    <div className="inspectionContainer">
+      <div className="inspectionSubContainer">
         {/* Schedule Section */}
         <section className="inspectorPropertySchedule">
           <div className="inspectionPropertyAddressContainer">
@@ -74,13 +74,12 @@ function Inspection() {
               vendor && (
                 <div className="vButtonContainer">
                   <p
-                    className={` ${
-                      (inspect.status === "Pending" && "") ||
+                    className={` ${(inspect.status === "Pending" && "") ||
                       (inspect.status === "Rejected" && "reject") ||
                       (inspect.status === "Accepted" && "accept") ||
                       (inspect.status === "Completed" && "accept") ||
                       (inspect.status === "Canceled" && "reject")
-                    } 
+                      } 
                  
                 `}>
                     {inspect.status === "Completed"
@@ -107,20 +106,19 @@ function Inspection() {
             {!vendor && (
               <div className="vButtonContainer">
                 <p
-                  className={` ${
-                    (inspect.status === "Pending" && "pending") ||
+                  className={` ${(inspect.status === "Pending" && "pending") ||
                     (inspect.status === "Rejected" && "reject") ||
                     (inspect.status === "Accepted" && "accept") ||
                     (inspect.status === "Completed" && "accept") ||
                     (inspect.status === "Canceled" && "reject")
-                  } 
+                    } 
                        
                       `}>
                   {inspect.status === "Completed"
                     ? "Inspection Completed"
                     : inspect.status === "Canceled"
-                    ? "Inspection Canceled"
-                    : inspect.status}
+                      ? "Inspection Canceled"
+                      : inspect.status}
                 </p>
                 {/* cancel button  */}
                 {inspect.status === "Pending" && (
