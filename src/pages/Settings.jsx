@@ -4,6 +4,7 @@ import VendorImg from "../assets/vendorImg.jpg";
 import { doc, setDoc, getDoc } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { db } from "../lib/firebase";
+import Loading from "../components/loading";
 
 const Settings = () => {
   const [fullName, setFullName] = useState("");
@@ -14,6 +15,7 @@ const Settings = () => {
   const [location, setLocation] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(true); 
 
   const auth = getAuth();
   const user = auth.currentUser;
@@ -57,10 +59,16 @@ const Settings = () => {
           console.error("Error fetching vendor data:", err.message);
         }
       }
+      setLoading(false);
+
     };
 
     fetchVendorData();
   }, [user]);
+
+  if (loading) {
+    return <Loading />;
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();

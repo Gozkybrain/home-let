@@ -3,6 +3,7 @@ import { getAuth } from "firebase/auth";
 import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import flat from "../assets/fiat.png"; 
+import Loading from "../components/loading";
 import "../styles/Profile.css";
 
 const Profile = () => {
@@ -11,6 +12,7 @@ const Profile = () => {
   const storage = getStorage();
   const [user, setUser] = useState(null);
   const [profileImage, setProfileImage] = useState(flat);
+  const [loading, setLoading] = useState(true); 
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -59,10 +61,15 @@ const Profile = () => {
       } else {
         setUser(null);
       }
+      setLoading(false);
     });
 
     return () => unsubscribe();
   }, [auth, db]);
+
+  if (loading) {
+    return <Loading />;
+  }
 
   const handleImageChange = async (e) => {
     const file = e.target.files[0];
