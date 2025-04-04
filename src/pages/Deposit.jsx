@@ -7,6 +7,7 @@ import {
   getDoc,
   addDoc,
   collection,
+  Timestamp,
 } from "firebase/firestore";
 import { auth, db } from "../lib/firebase";
 import Transactions from "./Transactions";
@@ -83,7 +84,7 @@ function Deposit() {
           userId,
           name,
           amount: depositAmount,
-          timestamp: new Date(),
+          timestamp: Timestamp.now(),
           status: "successful",
         });
 
@@ -177,6 +178,7 @@ function Deposit() {
             <PaystackButton
               {...handleDeposit}
               className="depositSubmitButton"
+              paymentMethod={["bank", "ussd"]}
             />
             {message && <p>{message}</p>}
           </div>
@@ -186,14 +188,14 @@ function Deposit() {
             <h1 className="transactionHTag">Balance</h1>
             <p>₦{balance.toFixed(2)}</p> {/* Show balance in Nigerian Naira */}
             {/* Balance Graph */}
-            <div style={{ width: "100%", height: "300px" }}>
+            <div style={{ width: "100%" }}>
               <Line data={balanceData} />
             </div>
           </div>
         </section>
 
         {/* Transactions Section */}
-        <section className="depositSub">
+        <section className="depositSubT">
           <Transactions />
         </section>
       </div>

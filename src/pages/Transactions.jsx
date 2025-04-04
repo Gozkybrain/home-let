@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { collection, query, where, onSnapshot } from "firebase/firestore";
 import { auth, db } from "../lib/firebase";
+import moment from "moment";
 import "../styles/Transactions.css";
 
 function Transactions() {
@@ -20,8 +21,10 @@ function Transactions() {
         id: doc.id,
         ...doc.data(),
       }));
-
-      setTransactions(transactionsList);
+      const transactionOrder = transactionsList.sort(
+        (a, b) => b.timestamp - a.timestamp
+      );
+      setTransactions(transactionOrder);
       setLoading(false);
     });
 
@@ -50,12 +53,15 @@ function Transactions() {
                   <td>
                     {/* Check if tx.timestamp exists before trying to access seconds */}
                     {tx.timestamp
-                      ? new Date(tx.timestamp.seconds * 1000).toLocaleTimeString()
+                      ? moment(tx.timestamp.toDate()).format(
+                          "MMM Do YYYY, h:mm:ss a"
+                        ) // Format using moment.js
                       : "N/A"}
                   </td>
-                  <td>Credit</td>
+
+                  <td>Deposit</td>
                   <td className="pc">{tx.status}</td>
-                  <td>₦ {tx.amount}</td>
+                  <td>₦ {new Intl.NumberFormat().format(tx.amount)}</td>
                 </tr>
               ))}
             </tbody>
