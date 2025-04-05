@@ -151,7 +151,7 @@ function Deposit() {
             <h1 className=" transactionHTag">Transactions</h1>
             <div className=" deposit-Subb">
               {/* Transaction name */}
-              <section className="ttt">
+              {/* <section className="ttt">
                 <input
                   required
                   type="text"
@@ -161,7 +161,7 @@ function Deposit() {
                   onChange={(e) => setName(e.target.value)}
                   value={name}
                 />
-              </section>
+              </section> */}
               {/* Transaction amount */}
               <section className="ttt">
                 <input

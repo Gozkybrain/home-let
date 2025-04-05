@@ -1,435 +1,406 @@
 body {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 /* Hero Section */
 .hero {
-    position: relative;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 50px;
-    padding: 150px 50px 50px;
-    margin-top: -120px;
-    overflow: hidden;
+  background-color: #006633;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 50px;
+  padding: 50px;
 }
 
-/* Background Image */
-.hero::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: url('../assets/png.jpg') center/cover no-repeat;
-    z-index: -2;
-}
-
-/* Green Overlay */
-.hero::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5); /* Green with transparency */
-    z-index: -1;
-}
-
-/* Content */
+/* Left Side - Hero Content */
 .hero-content {
-    flex: 1;
-    max-width: 50%;
-    min-width: 400px;
-    z-index: 1;
+  flex: 1;
+  max-width: 50%;
+  min-width: 400px;
 }
 
-  
-  .hero-content h1 {
-    font-size: 2.2rem;
-    font-weight: bold;
-    margin-bottom: 10px;
-  }
-  
-  .hero-content p {
-    color: #e0e0e0;
-    margin-bottom: 20px;
-  }
-  
-  .hero-buttons {
-    display: flex;
-    gap: 15px;
-    flex-wrap: wrap;
-  }
-  
-  .btn {
-    padding: 12px 20px;
-    font-size: 16px;
-    border-radius: 6px;
-    cursor: pointer;
-    border: none;
-    transition: all 0.3s ease-in-out;
-  }
-  
-  .primary {
-    background-color: white;
-    color: #006633;
-    border: 1px solid white;
-  }
-  
-  .primary:hover {
-    background-color: #004d26;
-    color: white;
-    border: 1px solid yellowgreen;
-  }
-  
-  .secondary {
-    background-color: white;
-    color: black;
-    border: 1px solid black;
-  }
-  
-  .secondary:hover {
-    background-color: #d1d5db;
-  }
-  
-  /* Right Side - Registration Box */
-  .regTextBox {
-    flex: 1;
-    max-width: 30%;
-    min-width: 100px;
-    background: white;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    color: black;
-    border: 9px solid yellowgreen;
-  }
-  
-  .register-box h2 {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 10px;
-  }
-  
-  .register-box p {
-    color: #4b5563;
-    margin-bottom: 15px;
-  }
-  
-  /* Registration Buttons */
-  .primary-btn,
-  .secondary-btn {
-    width: 100%;
-    padding: 12px;
-    font-size: 16px;
-    border-radius: 8px;
-    cursor: pointer;
-    margin-top: 8px;
-    border: none;
-  }
-  
-  .primary-btn {
-    background-color: #006631;
-    color: white;
-  }
-  
-  .primary-btn:hover {
-    background-color: #21a05e;
-  }
-  
-  .secondary-btn {
-    background-color: #e5e7eb;
-    color: #374151;
-  }
-  
-  .secondary-btn:hover {
-    background-color: #d1d5db;
-  }
-  
-  .subtext {
-    color: #6b7280;
-    margin-top: 10px;
-  }
-  /*  */
-  
-  .featContainer {
-    margin: 4rem 6rem;
-    padding: auto 4rem;
-  }
-  
-  .featTitle {
-    /* text-align: center; */
-    font-size: 2.2rem;
-    font-weight: bold;
-    /* color:#006631; */
-    margin-bottom: 20px;
-  }
-  
-  .features-list {
-    list-style: none;
-    display: flex;
-    padding: 0;
-    font-size: 1rem;
-    gap: 20px;
-  }
-  
-  .icon {
-    font-size: 20px;
-    margin-right: 10px;
-  }
-  
-  .button-container {
-    /* text-align: center; */
-    margin-top: 20px;
-  }
-  
-  .cta-button,
-  .importBtn {
-    background-color: #006631;
-    color: #ffffff;
-    padding: 10px 20px;
-    font-size: 16px;
-    font-weight: bold;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background 0.3s ease;
-  }
-  
-  .cta-button:hover,
-  .importBtn:hover {
-    background-color: #21a05e;
-  }
-  
-  .spanFlex {
-    display: flex;
-    align-items: center;
-  }
-  .spanFlex h3 {
-    padding: 0;
-    margin: 0;
-    line-height: 1rem;
-  }
-  .features-list p {
-    line-height: 1.5;
-    margin: 0 0 1.5rem 0;
-  }
-  .standOut {
-    background-color: #fff;
-  }
-  .standOut {
-    padding: 6rem;
-  }
-  .startDiv {
-    display: flex;
-    gap: 20px;
-    padding-bottom: 1rem;
-  }
-  .startDiv1 {
-    width: 33.3%;
-  }
-  .image-wrapper {
-    position: relative;
-    width: 100%;
-    margin-bottom: 4rem;
-    z-index: -1;
-  
-  
-    /* max-width: 600px; Adjust as needed */
-  }
-  
-  .image-wrapper img {
-    width: 100%;
-    height: 100vh;
-    display: block;
-  }
-  
-  .content-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    /* width: 100%; */
-    height: 100vh;
-    background: rgba(223, 220, 220, 0.829); /* Dark overlay */
-    color: white;
-    display: flex;
+.hero-content h1 {
+  font-size: 2.2rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.hero-content p {
+  color: #e0e0e0;
+  margin-bottom: 20px;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  padding: 12px 20px;
+  font-size: 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  border: none;
+  transition: all 0.3s ease-in-out;
+}
+
+.primary {
+  background-color: white;
+  color: #006633;
+  border: 1px solid white;
+}
+
+.primary:hover {
+  background-color: #004d26;
+  color: white;
+  border: 1px solid yellowgreen;
+}
+
+.secondary {
+  background-color: white;
+  color: black;
+  border: 1px solid black;
+}
+
+.secondary:hover {
+  background-color: #d1d5db;
+}
+
+/* Right Side - Registration Box */
+.regTextBox {
+  flex: 1;
+  max-width: 30%;
+  min-width: 100px;
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  color: black;
+  border: 9px solid yellowgreen;
+}
+
+.register-box h2 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.register-box p {
+  color: #4b5563;
+  margin-bottom: 15px;
+}
+
+/* Registration Buttons */
+.primary-btn,
+.secondary-btn {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 8px;
+  border: none;
+}
+
+.primary-btn {
+  background-color: #006631;
+  color: white;
+}
+
+.primary-btn:hover {
+  background-color: #21a05e;
+}
+
+.secondary-btn {
+  background-color: #e5e7eb;
+  color: #374151;
+}
+
+.secondary-btn:hover {
+  background-color: #d1d5db;
+}
+
+.subtext {
+  color: #6b7280;
+  margin-top: 10px;
+}
+/*  */
+
+.featContainer {
+  margin: 4rem 6rem;
+  padding: auto 4rem;
+}
+
+.featTitle {
+  /* text-align: center; */
+  font-size: 2.2rem;
+  font-weight: bold;
+  /* color:#006631; */
+  margin-bottom: 20px;
+}
+
+.features-list {
+  list-style: none;
+  display: flex;
+  padding: 0;
+  font-size: 1rem;
+  gap: 20px;
+}
+
+.icon {
+  font-size: 20px;
+  margin-right: 10px;
+}
+
+.button-container {
+  /* text-align: center; */
+  margin-top: 20px;
+}
+
+.cta-button,
+.importBtn {
+  background-color: #006631;
+  color: #ffffff;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.cta-button:hover,
+.importBtn:hover {
+  background-color: #21a05e;
+}
+
+.spanFlex {
+  display: flex;
+  align-items: center;
+}
+.spanFlex h3 {
+  padding: 0;
+  margin: 0;
+  line-height: 1rem;
+}
+.features-list p {
+  line-height: 1.5;
+  margin: 0 0 1.5rem 0;
+}
+.standOut {
+  background-color: #fff;
+}
+.standOut {
+  padding: 6rem;
+}
+.startDiv {
+  display: flex;
+  gap: 20px;
+  padding-bottom: 1rem;
+}
+.startDiv1 {
+  width: 33.3%;
+}
+.image-wrapper {
+  position: relative;
+  width: 100%;
+  margin-bottom: 4rem;
+  z-index: -1;
+
+
+  /* max-width: 600px; Adjust as needed */
+}
+
+.image-wrapper img {
+  width: 100%;
+  height: 100vh;
+  display: block;
+}
+
+.content-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  /* width: 100%; */
+  height: 100vh;
+  background: rgba(223, 220, 220, 0.829); /* Dark overlay */
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 6rem;
+  text-align: center;
+}
+.content-overlay h1 {
+  color: black;
+}
+.reachDiv {
+  color: black;
+  gap: 1rem;
+  /* width: ; */
+}
+.mainReach {
+  width: 50%;
+  text-align: left;
+}
+.mainReach h2 {
+  font-size: 2.3rem;
+  line-height: 0.1rem;
+}
+.mainReach p {
+  padding-bottom: 1rem;
+}
+
+.faq-container {
+ padding: 2rem 6rem;
+  margin-top: 4rem;
+}
+.faq-container h1 {
+  padding-bottom: 1rem;
+}
+.faq-item-cont{
+  max-width: 1050px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: space-between;
+}
+
+.faq-item {
+  flex: 1 1 calc(30% - 10px); /* Each FAQ takes 50% width with spacing */
+  border: 1px solid #ddd;
+  padding: 15px;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.faq-question {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  font-size: 18px;
+  font-weight: bold;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  padding: 10px 0;
+  transition: color 0.3s ease;
+  color: black;
+}
+.faq-question:hover {
+  color: #006631;
+}
+.dropdown-icon {
+  transition: transform 0.3s ease;
+}
+.dropdown-icon.open {
+  transform: rotate(180deg);
+}
+
+.faq-answer {
+  margin-top: 10px;
+  font-size: 16px;
+  color: #333;
+  line-height: 1.5;
+}
+
+.faq-footer {
+  width: 100%;
+  margin-top: 20px;
+  font-size: 16px;
+  color: #333;
+}
+
+.faq-footer a {
+  color: #006631;
+  text-decoration: none;
+}
+
+.faq-start {
+  display: block;
+  /* margin: 20px auto; */
+  padding: 10px 15px;
+  background-color: #006631;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  width: fit-content;
+}
+
+.faq-start:hover {
+  background-color: #21a05e;
+}
+/*  */
+
+/* Responsive: Stack on smaller screens */
+
+/* Responsive Fix */
+@media (max-width: 900px) {
+  .hero {
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 0 6rem;
     text-align: center;
   }
-  .content-overlay h1 {
-    color: black;
+
+  .hero-content,
+  .regTextBox {
+    max-width: 90%;
+    min-width: auto;
   }
-  .reachDiv {
-    color: black;
-    gap: 1rem;
-    /* width: ; */
+  .features-list {
+    flex-direction: column;
   }
-  .mainReach {
-    width: 50%;
-    text-align: left;
-  }
-  .mainReach h2 {
-    font-size: 2.3rem;
-    line-height: 0.1rem;
-  }
-  .mainReach p {
-    padding-bottom: 1rem;
-  }
-  
-  .faq-container {
-   padding: 2rem 6rem;
-    margin-top: 4rem;
-  }
-  .faq-container h1 {
-    padding-bottom: 1rem;
-  }
-  .faq-item-cont{
-    max-width: 1050px;
-    margin: 0 auto;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: space-between;
-  }
-  
+}
+@media (max-width: 768px) {
   .faq-item {
-    flex: 1 1 calc(30% - 10px); /* Each FAQ takes 50% width with spacing */
-    border: 1px solid #ddd;
-    padding: 15px;
-    border-radius: 5px;
-    background-color: #f9f9f9;
+    flex: 1 1 100%;
   }
-  
-  .faq-question {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    font-size: 18px;
-    font-weight: bold;
-    background: none;
-    border: none;
-    cursor: pointer;
-    text-align: left;
-    padding: 10px 0;
-    transition: color 0.3s ease;
-    color: black;
-  }
-  .faq-question:hover {
-    color: #006631;
-  }
-  .dropdown-icon {
-    transition: transform 0.3s ease;
-  }
-  .dropdown-icon.open {
-    transform: rotate(180deg);
-  }
-  
-  .faq-answer {
-    margin-top: 10px;
-    font-size: 16px;
-    color: #333;
-    line-height: 1.5;
-  }
-  
-  .faq-footer {
-    width: 100%;
-    margin-top: 20px;
-    font-size: 16px;
-    color: #333;
-  }
-  
-  .faq-footer a {
-    color: #006631;
-    text-decoration: none;
-  }
-  
-  .faq-start {
-    display: block;
-    /* margin: 20px auto; */
-    padding: 10px 15px;
-    background-color: #006631;
-    color: white;
-    border-radius: 5px;
-    cursor: pointer;
-    width: fit-content;
-  }
-  
-  .faq-start:hover {
-    background-color: #21a05e;
-  }
-  /*  */
-  
-  /* Responsive: Stack on smaller screens */
-  
-  /* Responsive Fix */
-  @media (max-width: 900px) {
-    .hero {
-      flex-direction: column;
-      text-align: center;
-    }
-  
-    .hero-content,
-    .regTextBox {
-      max-width: 90%;
-      min-width: auto;
-    }
-    .features-list {
-      flex-direction: column;
-    }
-  }
-  @media (max-width: 768px) {
-    .faq-item {
-      flex: 1 1 100%;
-    }
-  }
-  
-  /* About Section */
-  .homeAbout {
-    display: flex;
-    padding: 4rem;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    margin: 0 auto;
-    gap: 20px;
-  }
-  
-  .homeAbout-content {
-    max-width: 50%;
-  }
-  
-  .homeAbout-content h1 {
-    color: #006633;
-    font-size: 2.5rem;
-  }
-  .homeAbout-content h2 {
-    font-size: 1.6rem;
-    margin-bottom: 10px;
-  }
-  
-  .homeAbout-content p {
-    font-size: 1.2rem;
-    max-width: 80%;
-  }
-  .homeAbout-content button {
-    background-color: #006633;
-  }
-  /* Left Side Image */
-  
-  .homeAbout-image img {
-    width: 50%;
-    height: 50%;
-    margin-right: 35rem;
-  }
-  
+}
+
+/* About Section */
+.homeAbout {
+  display: flex;
+  padding: 4rem;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 auto;
+  gap: 20px;
+}
+
+.homeAbout-content {
+  max-width: 50%;
+}
+
+.homeAbout-content h1 {
+  color: #006633;
+  font-size: 2.5rem;
+}
+.homeAbout-content h2 {
+  font-size: 1.6rem;
+  margin-bottom: 10px;
+}
+
+.homeAbout-content p {
+  font-size: 1.2rem;
+  max-width: 80%;
+}
+.homeAbout-content button {
+  background-color: #006633;
+}
+/* Left Side Image */
+
+.homeAbout-image img {
+  width: 50%;
+  height: 50%;
+  margin-right: 35rem;
+}
