@@ -193,6 +193,8 @@ body {
   line-height: 1.5;
   margin: 0 0 1.5rem 0;
 }
+
+/*  */
 .standOut {
   background-color: #fff;
 }
@@ -213,7 +215,6 @@ body {
   margin-bottom: 4rem;
   z-index: -1;
 
-
   /* max-width: 600px; Adjust as needed */
 }
 
@@ -227,9 +228,8 @@ body {
   position: absolute;
   top: 0;
   left: 0;
-  /* width: 100%; */
   height: 100vh;
-  background: rgba(223, 220, 220, 0.829); /* Dark overlay */
+  background: rgba(223, 220, 220, 0.829); 
   color: white;
   display: flex;
   flex-direction: column;
@@ -257,15 +257,15 @@ body {
 .mainReach p {
   padding-bottom: 1rem;
 }
-
+/*  */
 .faq-container {
- padding: 2rem 6rem;
+  padding: 2rem 6rem;
   margin-top: 4rem;
 }
 .faq-container h1 {
   padding-bottom: 1rem;
 }
-.faq-item-cont{
+.faq-item-cont {
   max-width: 1050px;
   margin: 0 auto;
   display: flex;
@@ -275,7 +275,7 @@ body {
 }
 
 .faq-item {
-  flex: 1 1 calc(30% - 10px); /* Each FAQ takes 50% width with spacing */
+  flex: 1 1 calc(30% - 10px);
   border: 1px solid #ddd;
   padding: 15px;
   border-radius: 5px;
@@ -328,7 +328,6 @@ body {
 
 .faq-start {
   display: block;
-  /* margin: 20px auto; */
   padding: 10px 15px;
   background-color: #006631;
   color: white;
@@ -341,30 +340,6 @@ body {
   background-color: #21a05e;
 }
 /*  */
-
-/* Responsive: Stack on smaller screens */
-
-/* Responsive Fix */
-@media (max-width: 900px) {
-  .hero {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .hero-content,
-  .regTextBox {
-    max-width: 90%;
-    min-width: auto;
-  }
-  .features-list {
-    flex-direction: column;
-  }
-}
-@media (max-width: 768px) {
-  .faq-item {
-    flex: 1 1 100%;
-  }
-}
 
 /* About Section */
 .homeAbout {
@@ -403,4 +378,481 @@ body {
   width: 50%;
   height: 50%;
   margin-right: 35rem;
+}
+
+/* Responsive styles */
+
+
+@media (min-width: 1200px) {
+  .hero {
+    padding: 70px;
+  }
+
+  .hero-content {
+    max-width: 45%;
+  }
+
+  .hero-content h1 {
+    font-size: 3rem;
+  }
+
+  .hero-content p {
+    font-size: 1.2rem;
+  }
+}
+
+
+@media (max-width: 1199px) {
+  .hero {
+    padding: 40px;
+    gap: 30px;
+  }
+
+  .hero-content {
+    max-width: 100%;
+  }
+
+  .hero-content h1 {
+    font-size: 2.5rem;
+  }
+
+  .hero-content p {
+    font-size: 1.1rem;
+  }
+
+  .hero-buttons {
+    gap: 10px;
+  }
+}
+
+
+@media (max-width: 900px) {
+  .hero {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .hero-content,
+  .regTextBox {
+    max-width: 90%;
+    min-width: auto;
+  }
+  .features-list {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 767px) {
+  .hero {
+    padding: 30px;
+    gap: 20px;
+    flex-direction: column;
+  }
+
+  .hero-content {
+    max-width: 100%;
+    text-align: center;
+  }
+
+  .hero-content h1 {
+    font-size: 2rem;
+  }
+
+  .hero-content p {
+    font-size: 1rem;
+  }
+
+  .hero-buttons {
+    justify-content: center;
+    gap: 12px;
+  }
+
+  .btn {
+    font-size: 14px;
+    padding: 10px 18px;
+  }
+  .regTextBox {
+    max-width: 90%;
+    padding: 25px;
+  }
+
+  .register-box h2 {
+    font-size: 22px;
+  }
+
+  .register-box p {
+    font-size: 0.95rem;
+  }
+
+  .primary-btn,
+  .secondary-btn {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .subtext {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    padding: 20px;
+    gap: 15px;
+  }
+
+  .hero-content h1 {
+    font-size: 1.8rem;
+  }
+
+  .hero-content p {
+    font-size: 0.9rem;
+  }
+
+  .hero-buttons {
+    gap: 10px;
+  }
+
+  .btn {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+}
+@media (max-width: 1199px) and (min-width: 768px) {
+  .regTextBox {
+    max-width: 80%;
+    padding: 30px;
+  }
+
+  .register-box h2 {
+    font-size: 26px;
+  }
+
+  .register-box p {
+    font-size: 1rem;
+  }
+
+  .primary-btn,
+  .secondary-btn {
+    padding: 12px;
+  }
+}
+
+
+@media (max-width: 480px) {
+  .regTextBox {
+    max-width: 100%;
+    padding: 20px;
+  }
+
+  .register-box h2 {
+    font-size: 20px;
+  }
+
+  .register-box p {
+    font-size: 0.9rem;
+  }
+
+  .primary-btn,
+  .secondary-btn {
+    padding: 8px;
+    font-size: 12px;
+  }
+}
+/* For screens larger than 1200px (large monitors) */
+@media (min-width: 1200px) {
+  .featContainer {
+    margin: 4rem 10rem;
+    padding: auto 6rem;
+  }
+
+  .featTitle {
+    font-size: 2.5rem;
+  }
+
+  .features-list {
+    font-size: 1.2rem;
+    gap: 30px;
+  }
+
+  .cta-button,
+  .importBtn {
+    font-size: 18px;
+    padding: 12px 25px;
+  }
+}
+
+/* For tablets (screen widths 768px to 1199px) */
+@media (max-width: 1199px) and (min-width: 768px) {
+  .featContainer {
+    margin: 3rem 4rem;
+    padding: auto 3rem;
+  }
+
+  .featTitle {
+    font-size: 2.2rem;
+  }
+
+  .features-list {
+    font-size: 1.1rem;
+    gap: 20px;
+  }
+
+  .cta-button,
+  .importBtn {
+    font-size: 16px;
+    padding: 10px 20px;
+  }
+}
+
+/* For mobile phones (screen widths 480px to 767px) */
+@media (max-width: 767px) {
+  .featContainer {
+    margin: 2rem 2rem;
+    padding: auto 2rem;
+  }
+
+  .featTitle {
+    font-size: 1.8rem;
+    text-align: center;
+  }
+
+  .features-list {
+    flex-direction: column;
+    font-size: 1rem;
+    gap: 15px;
+  }
+
+  .cta-button,
+  .importBtn {
+    font-size: 14px;
+    padding: 10px 15px;
+  }
+}
+
+/* For small mobile phones (screen widths less than 480px) */
+@media (max-width: 480px) {
+  .featContainer {
+    margin: 1.5rem 1rem;
+    padding: auto 1rem;
+  }
+
+  .featTitle {
+    font-size: 1.6rem;
+    text-align: center;
+  }
+
+  .features-list {
+    font-size: 0.9rem;
+    gap: 12px;
+  }
+
+  .cta-button,
+  .importBtn {
+    font-size: 12px;
+    padding: 8px 12px;
+  }
+}
+@media (min-width: 1200px) {
+  .standOut {
+    padding: 6rem;
+  }
+
+  .startDiv {
+    gap: 30px;
+  }
+
+  .startDiv1 {
+    width: 33.3%;
+  }
+}
+
+/* For tablets (screen widths 768px to 1199px) */
+@media (max-width: 1199px) and (min-width: 768px) {
+  .standOut {
+    padding: 4rem;
+  }
+
+  .startDiv {
+    gap: 25px;
+  }
+
+  .startDiv1 {
+    width: 48%;
+  }
+}
+
+/* For mobile phones (screen widths 480px to 767px) */
+@media (max-width: 767px) {
+  .standOut {
+    padding: 3rem;
+  }
+  .standOut h1 {
+    font-size: 2.2rem;
+  }
+  .startDiv {
+    gap: 15px;
+    flex-direction: column; 
+  }
+
+  .startDiv1 {
+    width: 100%;
+  }
+}
+
+/* For small mobile phones (screen widths less than 480px) */
+@media (max-width: 480px) {
+  .standOut {
+    padding: 1rem;
+  }
+
+  .startDiv {
+    gap: 10px;
+  }
+
+  .startDiv1 {
+    width: 100%;
+  }
+}
+@media (min-width: 1200px) {
+  .content-overlay {
+    padding: 0 8rem;
+  }
+
+  .mainReach {
+    width: 50%;
+  }
+
+  .mainReach h2 {
+    font-size: 2.5rem;
+  }
+
+  .mainReach p {
+    font-size: 1.1rem;
+  }
+}
+
+/* For tablets (screen widths 768px to 1199px) */
+@media (max-width: 1199px) and (min-width: 768px) {
+  .content-overlay {
+    padding: 0 4rem;
+  }
+
+  .mainReach {
+    width: 60%;
+  }
+
+  .mainReach h2 {
+    font-size: 2rem;
+  }
+
+  .mainReach p {
+    font-size: 1rem;
+  }
+}
+
+/* For mobile phones (screen widths 480px to 767px) */
+@media (max-width: 767px) {
+  .content-overlay {
+    padding: 0 2rem;
+  }
+
+  .mainReach {
+    width: 80%;
+  }
+
+  .mainReach h2 {
+    font-size: 1.8rem;
+  }
+
+  .mainReach p {
+    font-size: 0.9rem;
+  }
+}
+
+/* For small mobile phones (screen widths less than 480px) */
+@media (max-width: 480px) {
+  .content-overlay {
+    padding: 0 1rem;
+    top: -15%;
+  }
+
+  .mainReach {
+    width: 100%;
+  }
+
+  .mainReach h2 {
+    font-size: 1.6rem;
+  }
+
+  .mainReach p {
+    font-size: 0.8rem;
+  }
+  .image-wrapper {
+    position: relative;
+    width: 100%;
+    margin-bottom: 1rem;
+    z-index: -1;
+
+  }
+
+  .image-wrapper img {
+    height: 80vh;
+    display: block;
+  }
+}
+@media (min-width: 1200px) {
+  .faq-item {
+    flex: 1 1 calc(30% - 10px);
+  }
+}
+
+/* Tablets (768px to 1199px) */
+@media (max-width: 1199px) and (min-width: 768px) {
+  .faq-item {
+    flex: 1 1 calc(45% - 10px); 
+  }
+}
+
+/* Mobile Phones (480px to 767px) */
+@media (max-width: 767px) {
+  .faq-item {
+    flex: 1 1 100%; 
+  }
+
+  .faq-container {
+    padding: 2rem;
+  }
+
+  .faq-container h1 {
+    text-align: center;
+  }
+
+  .faq-start {
+    width: 100%; 
+    margin-top: 20px;
+  }
+}
+
+/* Small Mobile Phones (below 480px) */
+@media (max-width: 480px) {
+  .faq-item {
+    flex: 1 1 100%; 
+  }
+
+  .faq-container {
+    padding: 1rem;
+    margin-bottom: 4rem;
+  }
+
+  .faq-container h1 {
+    font-size: 1.5rem;
+    text-align: center;
+  }
+
+  .faq-start {
+    width: 80%; 
+    margin-top: 20px;
+   margin: 0 auto;
+  }
 }
