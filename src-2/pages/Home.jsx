@@ -1,6 +1,7 @@
 import MapImg from "../assets/map.jpg";
 import { useState } from "react";
 import { FaChevronDown } from "react-icons/fa";
+import Footer from "../components/Footer"
 import Properties from "../components/Properties";
 import "../styles/Home.css";
 const Home = () => {
@@ -225,31 +226,30 @@ const Home = () => {
       <div className="faq-container">
         <h1>Your questions answered</h1>
         <div className="faq-item-cont">
-          {faqs.map((faq, index) => (
-            <div key={index} className="faq-item">
-              <button
-                className="faq-question"
-                onClick={() => toggleAnswer(index)}
-              >
-                <span>{faq.question}</span>
-                <FaChevronDown
-                  className={`dropdown-icon ${
-                    openIndex === index ? "open" : ""
-                  }`}
-                />
-              </button>
-              {openIndex === index && (
-                <div className="faq-answer">{faq.answer}</div>
-              )}
-            </div>
-          ))}
+        {faqs.map((faq, index) => (
+          <div key={index} className="faq-item">
+            <button
+              className="faq-question"
+              onClick={() => toggleAnswer(index)}
+            >
+              <span>{faq.question}</span>
+              <FaChevronDown
+                className={`dropdown-icon ${openIndex === index ? "open" : ""}`}
+              />
+            </button>
+            {openIndex === index && (
+              <div className="faq-answer">{faq.answer}</div>
+            )}
+          </div>
+        ))}
         </div>
-
+       
         <p className="faq-footer">
           Still have questions? Find answers to all your questions on our FAQ
         </p>
         <p className="faq-start">Start welcoming guests</p>
       </div>
+      <Footer/>
     </div>
   );
 };

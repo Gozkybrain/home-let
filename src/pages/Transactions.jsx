@@ -21,9 +21,9 @@ function Transactions() {
         id: doc.id,
         ...doc.data(),
       }));
-      const transactionOrder = transactionsList
-        .sort((a, b) => b.timestamp - a.timestamp)
-        .slice(0, 6);
+      const transactionOrder = transactionsList.sort(
+        (a, b) => b.timestamp - a.timestamp
+      );
       setTransactions(transactionOrder);
       setLoading(false);
     });
@@ -43,7 +43,8 @@ function Transactions() {
               <tr>
                 <th>Time</th>
                 <th>Type</th>
-                <th className="pc">Amount</th>
+                <th className="pc">Status</th>
+                <th>Amount</th>
               </tr>
             </thead>
             <tbody>
@@ -59,14 +60,12 @@ function Transactions() {
                   </td>
 
                   <td>Deposit</td>
-                  <td className="pc">
-                    ₦ {new Intl.NumberFormat().format(tx.amount)}
-                  </td>
+                  <td className="pc">{tx.status}</td>
+                  <td>₦ {new Intl.NumberFormat().format(tx.amount)}</td>
                 </tr>
               ))}
             </tbody>
           </table>
-          <button className="view-all">View Transactions</button>
         </div>
       ) : (
         <p>No transactions have been made yet.</p>
