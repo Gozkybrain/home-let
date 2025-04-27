@@ -17,11 +17,10 @@ const About = () => {
             everyone involved.
           </p>
         </div>
-
         <div className="about-image">
           <img src={AboutBg} alt="Welcome to HomeLet" />
         </div>
-        
+
       </div>
       <div className="section-container">
         <div className="about-section">
