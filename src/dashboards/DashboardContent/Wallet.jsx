@@ -2,12 +2,14 @@ import React, { useEffect, useState } from "react";
 import { db, auth } from "../../lib/firebase"; // Import your Firebase Auth
 import { collection, getDocs, query, where } from "firebase/firestore";
 import "../../styles/Wallet.css";
+import depositLogic from "../../lib/depositLogic";
 
 function Wallet() {
   const [totalCredit, setTotalCredit] = useState(0);
   const [totalDebit, setTotalDebit] = useState(0);
-  const [balance, setBalance] = useState(0);
 
+  // getting balance from transaction logic, would be editing when logic for this withdrawal would be built
+  const { balance } = depositLogic();
   // Get the currently logged-in user
   const currentUser = auth.currentUser;
 
@@ -36,7 +38,6 @@ function Wallet() {
 
           setTotalCredit(credit);
           setTotalDebit(debit);
-          setBalance(credit - debit);
         } catch (error) {
           console.error("Error fetching transactions:", error);
         }
@@ -46,15 +47,16 @@ function Wallet() {
     fetchTransactions();
   }, [currentUser]);
 
-  
   return (
     <div className="walletSubContainer">
       <div className="walletBalance">
-        <h3 className="walletDigit">NGN {balance.toFixed(2)}</h3>
+        {/* would be configured later when withdrawal has been built */}
+        <h3 className="walletDigit">NGN {balance.toLocaleString()}</h3>
         <p className="walletCategory">Balance</p>
       </div>
       <div className="walletCredit">
-        <h3 className="walletDigit">NGN {totalCredit.toFixed(2)}</h3>
+        {/* total income direct from transactions, won't be changed later  */}
+        <h3 className="walletDigit">NGN {balance.toLocaleString()}</h3>
         <p className="walletCategory">Income</p>
       </div>
       <div className="walletDebit">

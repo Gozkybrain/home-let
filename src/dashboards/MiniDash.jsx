@@ -3,8 +3,11 @@ import { Link } from "react-router-dom";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../lib/firebase";
-import "../styles/MiniDash.css";
 import flat from "../assets/fiat.png";
+import "../styles/MiniDash.css";
+// importing this css for profile
+import "../styles/Dashboard.css";
+import depositLogic from "../lib/depositLogic";
 
 // Skeleton loader component
 const SkeletonLoader = () => (
@@ -20,10 +23,11 @@ const SkeletonLoader = () => (
   </div>
 );
 
-function MiniDash({ closeMenu }) { // Accept closeMenu as a prop
+function MiniDash({ closeMenu, setDeposit }) {
+  // Accept closeMenu as a prop
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-
+  const { balance } = depositLogic();
   useEffect(() => {
     const auth = getAuth();
 
@@ -39,7 +43,8 @@ function MiniDash({ closeMenu }) { // Accept closeMenu as a prop
             role: userData.role,
             name: userData.fullName || "Guest User",
             email: userData.email || currentUser.email,
-            profilePhotoUrl: userData.profilePhotoUrl || currentUser.photoURL || flat,
+            profilePhotoUrl:
+              userData.profilePhotoUrl || currentUser.photoURL || flat,
           });
         } else {
           console.log("No user document found");
@@ -69,24 +74,38 @@ function MiniDash({ closeMenu }) { // Accept closeMenu as a prop
 
   return (
     <div className="dashboardContainer">
-      <div className="profileSection">
-        <img
-          src={user.profilePhotoUrl}
-          alt="Profile"
-          className="profileImage"
-        />
-        <div className="profileDetails">
-          <h2 className="profileName">{user.name}</h2>
-          <p className="profileEmail">{user.email}</p>
-          <Link to="/profile" className="profileButton" onClick={closeMenu}> {/* Close menu on click */}
-            Go to Profile
-          </Link>
+      {/* profile section  */}
+      <div className="profileSectionD">
+        <div className="profileInformationContainerT">
+          <div>
+            {" "}
+            <img src={user?.profilePhotoUrl} alt="Profile" />
+            <div>
+              <h5 className="balannceHTag">{user?.name}</h5>
+              <span className="transactionLabels">{user?.email}</span>
+              <span className="balannceHTag">₦ {balance.toLocaleString()}</span>
+              {/* customer privilage  */}
+              <div className="role">
+                {user.role === "admin" && <div>Admin</div>}
+                {user.role === "vendor" && <div>Vendor</div>}
+                {user.role === "customer" && <div>Customer</div>}
+              </div>
+            </div>
+          </div>
+          <div className="profileButtonsContainer">
+            <Link to="/withdrawal" className="profileButton">
+              Withdraw
+            </Link>{" "}
+            <button onClick={() => setDeposit(true)} className="profileButton">
+              Deposit
+            </button>
+            <Link to="/profile" className="profileButton" onClick={closeMenu}>
+              {" "}
+              {/* Close menu on click */}
+              Profile
+            </Link>
+          </div>
         </div>
-      </div>
-      <div className="role">
-        {user.role === "admin" && <div>You have admin privileges.</div>}
-        {user.role === "vendor" && <div>You have vendor privileges.</div>}
-        {user.role === "customer" && <div>You do not have vendor privileges.</div>}
       </div>
     </div>
   );

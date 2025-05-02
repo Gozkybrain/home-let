@@ -4,18 +4,23 @@ import MiniDash from "./MiniDash";
 import Properties from "../components/Properties";
 import "../styles/Dashboard.css";
 import Loading from "../components/loading";
-import { auth, db } from "../lib/firebase"; 
+import { auth, db } from "../lib/firebase";
 import { doc, getDoc } from "firebase/firestore";
 import LastProperty from "./DashboardContent/LastProperty";
+import Deposit from "../pages/Deposit";
 
 const Dashboard = () => {
   const [loading, setLoading] = useState(true);
-  const userId = auth.currentUser?.uid; 
+  const userId = auth.currentUser?.uid;
+  const [deposit, setDeposit] = useState(false);
+  // const Deposit = (e) => {
+  //   e.preventDefault();
+  // };
 
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const user = auth.currentUser; 
+        const user = auth.currentUser;
         if (user) {
           // Use doc() and getDoc() from Firestore to fetch user document
           const userDocRef = doc(db, "users", user.uid);
@@ -45,19 +50,23 @@ const Dashboard = () => {
         <Wallet />
       </div>
       <div className="first-Dashboard">
-        <div className="historyContainer">
-          <MiniDash />
-        </div>
+        <MiniDash setDeposit={setDeposit} />
         <div className="my-recent">
           {/* Check if userId is available before passing to LastProperty */}
           {userId ? (
-            <LastProperty userId={userId} /> 
+            <LastProperty userId={userId} />
           ) : (
             <div>Please log in to see your last property.</div>
           )}
         </div>
       </div>
       <Properties />
+      {/* deposit modal */}
+      {deposit && (
+        <section className="deposit-modal">
+          <Deposit setDeposit={setDeposit} />
+        </section>
+      )}
     </div>
   );
 };

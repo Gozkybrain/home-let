@@ -22,7 +22,6 @@ function App() {
     return () => unsubscribe();
   }, []);
 
-
   if (isAuthenticated === null) {
     return <Loading />;
   }
@@ -35,7 +34,6 @@ function App() {
       </div>
       <Footer />
     </div>
-
   );
 }
 

@@ -20,7 +20,6 @@ const About = () => {
         <div className="about-image">
           <img src={AboutBg} alt="Welcome to HomeLet" />
         </div>
-
       </div>
       <div className="section-container">
         <div className="about-section">
@@ -35,7 +34,6 @@ const About = () => {
             <img src={missionImg} alt="" />
           </div>
         </div>
-
 
         <div className="about-section">
           <h2 className="about-subtitle">What We Offer</h2>
@@ -77,6 +75,5 @@ const About = () => {
     </div>
   );
 };
-
 
 export default About;
