@@ -8,29 +8,15 @@ import { auth, db } from "../lib/firebase";
 import { doc, getDoc } from "firebase/firestore";
 import LastProperty from "./DashboardContent/LastProperty";
 import Deposit from "../pages/Deposit";
-import Withdrawal from "../pages/Widthdrawal";
 
 const Dashboard = () => {
   const [loading, setLoading] = useState(true);
   const userId = auth.currentUser?.uid;
   const [deposit, setDeposit] = useState(false);
-  const [withdrawal, setWithdrawal] = useState(false);
+  // const Deposit = (e) => {
+  //   e.preventDefault();
+  // };
 
-  // handle modal switch
-  const handleModalswitch = (e) => {
-    e.preventDefault();
-    // handling openning and closing Deposit/Withdrawal
-    if (e.target.id === "closeDeposit" || e.target.id === "closeWithdrawal") {
-      setDeposit(false);
-      setWithdrawal(false);
-    } else if (e.target.id === "openDeposit") {
-      setDeposit(true);
-      setWithdrawal(false);
-    } else if (e.target.id === "openWithdrawal") {
-      setDeposit(false);
-      setWithdrawal(true);
-    }
-  };
   useEffect(() => {
     const fetchUserData = async () => {
       try {
@@ -64,7 +50,7 @@ const Dashboard = () => {
         <Wallet />
       </div>
       <div className="first-Dashboard">
-        <MiniDash handleModalswitch={handleModalswitch} />
+        <MiniDash setDeposit={setDeposit} />
         <div className="my-recent">
           {/* Check if userId is available before passing to LastProperty */}
           {userId ? (
@@ -78,12 +64,7 @@ const Dashboard = () => {
       {/* deposit modal */}
       {deposit && (
         <section className="deposit-modal">
-          <Deposit handleModalswitch={handleModalswitch} />
-        </section>
-      )}
-      {withdrawal && (
-        <section className="deposit-modal">
-          <Withdrawal handleModalswitch={handleModalswitch} />
+          <Deposit setDeposit={setDeposit} />
         </section>
       )}
     </div>

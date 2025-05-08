@@ -1,10 +1,13 @@
 import React from "react";
 import { PaystackButton } from "react-paystack";
+import Transactions from "./Transactions";
 import depositLogic from "../lib/depositLogic";
+import { Line } from "react-chartjs-2"; // Import Chart.js component
 import "../styles/Deposit.css";
+import { Link } from "react-router-dom";
 import depositImg from "../assets/depositImg.png";
 
-function Deposit({ handleModalswitch }) {
+function Deposit({ setDeposit }) {
   const {
     handleDeposit,
     balanceData,
@@ -17,10 +20,7 @@ function Deposit({ handleModalswitch }) {
 
   return (
     <div className="depositContainerBody">
-      <span
-        className="closeDepositModal"
-        onClick={handleModalswitch}
-        id="closeDeposit">
+      <span className="closeDepositModal" onClick={() => setDeposit(false)}>
         x
       </span>
 

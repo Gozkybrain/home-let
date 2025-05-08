@@ -14,10 +14,12 @@ import Sidebar from "../dashboards/Sidebar";
 import VendorProperties from "../pages/VendorProperties";
 import Dashboard from "../dashboards/Dashboard";
 import Profile from "../pages/Profile";
+import Deposit from "../pages/Deposit";
 import Inspection from "../pages/Inspection";
 import Settings from "../pages/Settings";
 import "../styles/GetDash.css";
 import History from "../dashboards/MiniDash";
+import Withdrawal from "../pages/Widthdrawal";
 import TransactionForm from "../pages/TransactionForm";
 import AllUsers from "../pages/AllUsers";
 import User from "../pages/User";
@@ -43,6 +45,7 @@ const GetDash = () => {
     return () => unsubscribe();
   }, [auth]);
 
+
   // Show loading until the auth state is determined
   if (loading) {
     return <Loading />;
@@ -52,6 +55,7 @@ const GetDash = () => {
   if (!user) {
     return <Navigate to="/login" state={{ from: location }} />;
   }
+
 
   return (
     <div>
@@ -74,12 +78,14 @@ const GetDash = () => {
           <Route path="/contact-us" element={<Contact />} />
           <Route path="/properties" element={<ProductList />} />
           <Route path="/preview/:propertyId" element={<PropertyPreview />} />
-          <Route path="/user/:userId" element={<User />} />
+          <Route path="/user/:userId" element={<User/>} />
           <Route path="/terms" element={<Terms />} />
           <Route path="/our-services" element={<Services />} />
           <Route path="/vendor-properties" element={<VendorProperties />} />
           <Route index element={<Dashboard />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/deposit" element={<Deposit />} />
+          <Route path="/withdrawal" element={<Withdrawal />} />
           <Route path="/history" element={<History />} />
           <Route path="/inspection" element={<Inspection />} />
           <Route path="/settings" element={<Settings />} />

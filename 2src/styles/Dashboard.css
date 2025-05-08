@@ -1,0 +1,75 @@
+.Vendor-Dashboard-Container {
+  display: flex;
+  flex-direction: column;
+  width: 95%;
+}
+
+.first-Dashboard {
+  display: flex;
+  padding: 20px 0;
+  gap: 10px;
+  width: 100%;
+  align-items: center;
+}
+
+
+.walletContainer {
+  padding: 20px 0;
+  display: flex;
+  width: 100%;
+  border-radius: 10px;
+  height: 120px;
+}
+
+.historyContainer {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19);
+  padding: 20px 0;
+  background-color: #fff;
+  width: 100%;
+  flex: 1;
+  border-radius: 10px;
+}
+
+.my-recent {
+  padding: 20px 0;
+  flex: 1;
+  border-radius: 10px;
+}
+.deposit-modal{
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  top: 99px;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #000000d5;
+  z-index: 50;
+}
+
+@media (max-width: 1050px) {
+  .first-Dashboard {
+    display: block;
+    flex-direction: column;
+  }
+
+  .historyContainer,
+  .my-recent {
+    width: 100%;
+    margin-top: 20px;
+
+  }
+}
+@media (max-width: 800px) {
+  .deposit-modal{
+    position: fixed;
+    width: 100%;
+    top: 70px;
+    left: 0;
+    z-index: 50;
+    overflow-x: none;
+    display: flex;
+    align-items: center;
+  }
+}

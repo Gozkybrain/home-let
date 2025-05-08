@@ -23,7 +23,7 @@ const SkeletonLoader = () => (
   </div>
 );
 
-function MiniDash({ closeMenu, handleModalswitch }) {
+function MiniDash({ closeMenu, setDeposit }) {
   // Accept closeMenu as a prop
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -93,16 +93,10 @@ function MiniDash({ closeMenu, handleModalswitch }) {
             </div>
           </div>
           <div className="profileButtonsContainer">
-            <button
-              onClick={handleModalswitch}
-              className="profileButton"
-              id="openWithdrawal">
+            <Link to="/withdrawal" className="profileButton">
               Withdraw
-            </button>{" "}
-            <button
-              onClick={handleModalswitch}
-              className="profileButton"
-              id="openDeposit">
+            </Link>{" "}
+            <button onClick={() => setDeposit(true)} className="profileButton">
               Deposit
             </button>
             <Link to="/profile" className="profileButton" onClick={closeMenu}>
