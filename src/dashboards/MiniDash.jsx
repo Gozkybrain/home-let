@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../lib/firebase";
@@ -23,7 +22,7 @@ const SkeletonLoader = () => (
   </div>
 );
 
-function MiniDash({ closeMenu, handleModalswitch }) {
+function MiniDash({ closeMenu }) {
   // Accept closeMenu as a prop
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -91,25 +90,6 @@ function MiniDash({ closeMenu, handleModalswitch }) {
                 {user.role === "customer" && <div>Customer</div>}
               </div>
             </div>
-          </div>
-          <div className="profileButtonsContainer">
-            <button
-              onClick={handleModalswitch}
-              className="profileButton"
-              id="openWithdrawal">
-              Withdraw
-            </button>{" "}
-            <button
-              onClick={handleModalswitch}
-              className="profileButton"
-              id="openDeposit">
-              Deposit
-            </button>
-            <Link to="/profile" className="profileButton" onClick={closeMenu}>
-              {" "}
-              {/* Close menu on click */}
-              Profile
-            </Link>
           </div>
         </div>
       </div>

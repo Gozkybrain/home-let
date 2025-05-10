@@ -9,6 +9,7 @@ import { doc, getDoc } from "firebase/firestore";
 import LastProperty from "./DashboardContent/LastProperty";
 import Deposit from "../pages/Deposit";
 import Withdrawal from "../pages/Widthdrawal";
+import map from "../assets/map.png";
 
 const Dashboard = () => {
   const [loading, setLoading] = useState(true);
@@ -58,20 +59,41 @@ const Dashboard = () => {
     return <Loading />;
   }
 
+  const pinPositions = [
+    { top: "20%", left: "60%" },
+    { top: "40%", left: "50%" },
+    { top: "70%", left: "80%" },
+    { top: "10%", left: "30%" },
+    { top: "50%", left: "20%" },
+    { top: "65%", left: "70%" },
+    { top: "30%", left: "90%" },
+    { top: "15%", left: "10%" },
+    { top: "55%", left: "40%" },
+    { top: "35%", left: "75%" },
+  ];
+
   return (
     <div className="Vendor-Dashboard-Container">
       <div className="walletContainer">
         <Wallet />
       </div>
       <div className="first-Dashboard">
-        <MiniDash handleModalswitch={handleModalswitch} />
-        <div className="my-recent">
+        <MiniDash />
+        <div>
           {/* Check if userId is available before passing to LastProperty */}
-          {userId ? (
-            <LastProperty userId={userId} />
-          ) : (
-            <div>Please log in to see your last property.</div>
-          )}
+          <LastProperty handleModalswitch={handleModalswitch} />
+        </div>
+        <div className="map-container">
+          <img src={map} alt="World Map" className="map-image" />
+
+          {pinPositions.map((pos, index) => (
+            <div
+              key={index}
+              className="map-pin"
+              style={{ top: pos.top, left: pos.left }}
+            />
+          ))}
+          {/* Add more pins as needed */}
         </div>
       </div>
       <Properties />
