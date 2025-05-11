@@ -22,7 +22,7 @@ const SkeletonLoader = () => (
   </div>
 );
 
-function MiniDash({ closeMenu }) {
+function MiniDash({ closeMenu, handleModalswitch }) {
   // Accept closeMenu as a prop
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -78,17 +78,33 @@ function MiniDash({ closeMenu }) {
         <div className="profileInformationContainerT">
           <div>
             {" "}
-            <img src={user?.profilePhotoUrl} alt="Profile" />
+            <img src={user?.profilePhotoUrl} alt="Profile" className="my-dp" />
             <div>
-              <h5 className="balannceHTag">{user?.name}</h5>
+              <h5 className="balannceHTag">@{user?.name}</h5>
               <span className="transactionLabels">{user?.email}</span>
-              <span className="balannceHTag">₦ {balance.toLocaleString()}</span>
               {/* customer privilage  */}
               <div className="role">
                 {user.role === "admin" && <div>Admin</div>}
                 {user.role === "vendor" && <div>Vendor</div>}
                 {user.role === "customer" && <div>Customer</div>}
               </div>
+            </div>
+          </div>
+          {/* buttons container  */}
+          <div className="myRecentProductsContainer">
+            <div className="profileButtonsContainer">
+              <button
+                onClick={handleModalswitch}
+                className="profileButton"
+                id="openWithdrawal">
+                Withdraw
+              </button>{" "}
+              <button
+                onClick={handleModalswitch}
+                className="profileButton"
+                id="openDeposit">
+                Deposit
+              </button>
             </div>
           </div>
         </div>

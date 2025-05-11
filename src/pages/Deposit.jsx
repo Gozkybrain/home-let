@@ -53,13 +53,6 @@ function Deposit({ handleModalswitch }) {
             />
             {message && <p>{message}</p>}
           </div>
-
-          {/* balance  */}
-          <div className="depositCard">
-            <h1 className="balannceHTag">Balance</h1>
-            {/* Show balance in Nigerian Naira */}
-            <p className="balannceHTag">₦ {balance.toLocaleString()}</p>{" "}
-          </div>
         </section>
         {/* img container  */}
         <section className="depositImgContainer">
